@@ -42,24 +42,17 @@ export const Navbar: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Left: INPAND Technologies wordmark */}
+            {/* Left: Official INPAND Technologies logo */}
             <Link
               to="/"
               className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
               aria-label="INPAND Technologies Home"
             >
-              <div className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-white font-heading font-extrabold text-base tracking-tight group-hover:bg-black transition-colors">
-                <span>I</span>
-                <span className="text-accent font-black text-lg leading-none">N</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-base sm:text-lg text-primary tracking-tight leading-none">
-                  INPAND
-                </span>
-                <span className="text-[9px] font-semibold text-secondary tracking-[0.2em] uppercase mt-0.5">
-                  Technologies
-                </span>
-              </div>
+              <img
+                src="/images/inpand-logo-horizontal.png"
+                alt="INPAND Technologies — The Business Point"
+                className="h-8 sm:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90"
+              />
             </Link>
 
             {/* Desktop Navigation Links */}

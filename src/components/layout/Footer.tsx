@@ -14,19 +14,12 @@ export const Footer: React.FC = () => {
           
           {/* Col 1 & 2: Brand & Positioning */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            <Link to="/" className="flex items-center gap-3 inline-block" aria-label="INPAND Technologies">
-              <div className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-white font-heading font-extrabold text-base">
-                <span>I</span>
-                <span className="text-accent font-black text-lg leading-none">N</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-base sm:text-lg text-primary tracking-tight leading-none">
-                  INPAND
-                </span>
-                <span className="text-[9px] font-semibold text-secondary tracking-[0.2em] uppercase mt-0.5">
-                  Technologies
-                </span>
-              </div>
+            <Link to="/" className="inline-block" aria-label="INPAND Technologies">
+              <img
+                src="/images/inpand-logo-horizontal.png"
+                alt="INPAND Technologies — The Business Point"
+                className="h-9 sm:h-10 w-auto object-contain hover:opacity-90 transition-opacity"
+              />
             </Link>
 
             <p className="text-xs font-semibold uppercase tracking-wider text-accent">

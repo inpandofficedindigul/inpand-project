@@ -163,6 +163,34 @@ const sitemap = fs.readFileSync('public/sitemap.xml', 'utf-8');
 assert(!robots.includes('inpandtechnologies.com'), 'robots.txt does not publish fabricated unconfirmed domain');
 assert(!sitemap.includes('inpandtechnologies.com'), 'sitemap.xml does not publish fabricated unconfirmed domain');
 
+// 8. Official Brand Logo & Favicon Assets
+console.log('\n=== 8. OFFICIAL OFFICE LOGO & FAVICON ASSETS ===');
+const brandAssets = [
+  'public/favicon.ico',
+  'public/favicon.png',
+  'public/favicon-32x32.png',
+  'public/images/inpand-logo.png',
+  'public/images/inpand-logo-horizontal.png',
+  'public/images/inpand-mark.png',
+];
+
+brandAssets.forEach((asset) => {
+  assert(fs.existsSync(asset), `Brand asset exists: ${asset}`);
+  const stats = fs.statSync(asset);
+  assert(stats.size > 0, `Brand asset ${asset} is non-empty (${stats.size} bytes)`);
+});
+
+const indexHtml = fs.readFileSync('index.html', 'utf-8');
+assert(indexHtml.includes('/favicon.ico'), 'index.html references favicon.ico');
+assert(indexHtml.includes('/favicon.png'), 'index.html references favicon.png');
+assert(indexHtml.includes('/images/inpand-logo.png'), 'index.html references official inpand-logo.png in OpenGraph');
+
+const navbarFile = fs.readFileSync('src/components/layout/Navbar.tsx', 'utf-8');
+assert(navbarFile.includes('/images/inpand-logo-horizontal.png'), 'Navbar renders official inpand-logo-horizontal.png');
+
+const footerFile = fs.readFileSync('src/components/layout/Footer.tsx', 'utf-8');
+assert(footerFile.includes('/images/inpand-logo-horizontal.png') || footerFile.includes('/images/inpand-logo.png'), 'Footer renders official logo');
+
 console.log('\n======================================================');
 console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);
 console.log(`PASSED: ${passed}`);

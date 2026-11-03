@@ -11,7 +11,7 @@ interface SEOHeadProps {
 export function SEOHead({
   title,
   description = 'Explore websites and digital solutions developed by INPAND Technologies. Transform Ideas Into Business Growth.',
-  image = '/images/inpand-logo.svg',
+  image = '/images/inpand-logo.png',
   path = '',
 }: SEOHeadProps) {
   useEffect(() => {

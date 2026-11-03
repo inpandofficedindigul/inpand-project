@@ -12,7 +12,7 @@ export const TEST_FIXTURES: Project[] = [
     title: 'Sample Static Showcase',
     category: 'Static Websites',
     shortDescription: 'Test fixture for static website rendering.',
-    thumbnail: '/images/inpand-logo.svg',
+    thumbnail: '/images/inpand-mark.png',
     previewVideo: undefined,
     domain: 'https://inpand.com',
     technologies: ['React', 'TypeScript', 'Tailwind CSS'],
@@ -27,7 +27,7 @@ export const TEST_FIXTURES: Project[] = [
     title: 'Sample E-Commerce Store',
     category: 'E-Commerce',
     shortDescription: 'Test fixture for e-commerce rendering.',
-    thumbnail: '/images/inpand-logo.svg',
+    thumbnail: '/images/inpand-mark.png',
     previewVideo: undefined,
     domain: 'https://inpand.com',
     technologies: ['React', 'TypeScript'],
@@ -37,3 +37,4 @@ export const TEST_FIXTURES: Project[] = [
     completionYear: '2024',
   },
 ];
+
