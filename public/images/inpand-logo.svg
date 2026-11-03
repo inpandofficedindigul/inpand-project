@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
+  <!-- Geometric Icon -->
+  <rect x="4" y="12" width="40" height="40" rx="8" fill="#171717"/>
+  <path d="M16 22H22V42H16V22Z" fill="#FFFFFF"/>
+  <path d="M22 22L32 34V22H38V42H32L22 30V42Z" fill="#315EFB"/>
+  
+  <!-- Wordmark -->
+  <text x="56" y="34" font-family="'Manrope', -apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="20" fill="#171717" letter-spacing="-0.03em">INPAND</text>
+  <text x="56" y="48" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-weight="600" font-size="9" fill="#737373" letter-spacing="0.2em">TECHNOLOGIES</text>
+</svg>

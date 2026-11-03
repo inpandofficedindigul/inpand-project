@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" fill="none">
+    <defs>
+      <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#121212"/>
+        <stop offset="100%" stop-color="#1C1C1E"/>
+      </linearGradient>
+    </defs>
+    
+    <!-- Outer Container -->
+    <rect width="1200" height="750" fill="#2C2C2E" rx="12"/>
+    <rect x="1" y="1" width="1198" height="748" fill="#121212" rx="11"/>
+
+    <!-- Browser Bar -->
+    <rect width="1200" height="48" fill="#1C1C1E" rx="11"/>
+    <path d="M0 36H1200V48H0z" fill="#1C1C1E"/>
+    <line x1="0" y1="48" x2="1200" y2="48" stroke="#2C2C2E" stroke-width="1"/>
+    
+    <!-- Window Controls -->
+    <circle cx="28" cy="24" r="6" fill="#FF5F56"/>
+    <circle cx="48" cy="24" r="6" fill="#FFBD2E"/>
+    <circle cx="68" cy="24" r="6" fill="#27C93F"/>
+
+    <!-- URL Bar -->
+    <rect x="120" y="12" width="480" height="24" rx="6" fill="#2C2C2E" stroke="#2C2C2E" stroke-width="1"/>
+    <circle cx="136" cy="24" r="3" fill="#315EFB"/>
+    <text x="148" y="28" font-family="'Inter', sans-serif" font-size="11" fill="#8E8E93" font-weight="500">https://strata-fleet.com</text>
+
+    <!-- Tag Indicator -->
+    <rect x="1050" y="12" width="120" height="24" rx="4" fill="#05966915"/>
+    <text x="1110" y="28" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#059669" text-anchor="middle">Web Application</text>
+
+    <!-- Main Content Area -->
+    <g transform="translate(0, 48)">
+      
+      <rect width="1200" height="702" fill="#0F172A"/>
+      <!-- Header -->
+      <rect width="1200" height="60" fill="#1E293B"/>
+      <text x="40" y="36" font-family="'Manrope', sans-serif" font-weight="800" font-size="18" fill="#38BDF8">STRATA FLEET &bull; TELEMETRICS</text>
+      <rect x="940" y="16" width="100" height="28" rx="14" fill="#059669" fill-opacity="0.2"/>
+      <circle cx="956" cy="30" r="4" fill="#10B981"/>
+      <text x="968" y="34" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#34D399">ONLINE: 412</text>
+      <circle cx="1140" cy="30" r="16" fill="#334155"/>
+      <text x="1140" y="35" font-family="'Inter', sans-serif" font-size="12" fill="#FFF" text-anchor="middle">OP</text>
+
+      <!-- Sidebar -->
+      <rect y="60" width="220" height="642" fill="#111827"/>
+      <text x="30" y="100" font-family="'Inter', sans-serif" font-size="11" font-weight="700" fill="#64748B">ACTIVE CHANNELS</text>
+      <rect x="20" y="120" width="180" height="36" rx="4" fill="#1E293B"/>
+      <text x="40" y="142" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#38BDF8">&bull; Live Telemetry</text>
+      <text x="40" y="186" font-family="'Inter', sans-serif" font-size="13" fill="#94A3B8">Route Optimization</text>
+      <text x="40" y="226" font-family="'Inter', sans-serif" font-size="13" fill="#94A3B8">Digital Manifests</text>
+      <text x="40" y="266" font-family="'Inter', sans-serif" font-size="13" fill="#94A3B8">Asset Telematics</text>
+      <text x="40" y="306" font-family="'Inter', sans-serif" font-size="13" fill="#94A3B8">Compliance Logs</text>
+
+      <!-- Main Dash -->
+      <g transform="translate(240, 80)">
+        <!-- Stat Cards -->
+        <rect width="220" height="100" rx="6" fill="#1E293B" stroke="#334155"/>
+        <text x="20" y="34" font-family="'Inter', sans-serif" font-size="12" fill="#94A3B8">TRANSIT COMPLETION</text>
+        <text x="20" y="70" font-family="'Manrope', sans-serif" font-weight="800" font-size="28" fill="#F8FAFC">99.4%</text>
+
+        <rect x="240" width="220" height="100" rx="6" fill="#1E293B" stroke="#334155"/>
+        <text x="260" y="34" font-family="'Inter', sans-serif" font-size="12" fill="#94A3B8">ACTIVE SHIPMENTS</text>
+        <text x="260" y="70" font-family="'Manrope', sans-serif" font-weight="800" font-size="28" fill="#38BDF8">1,842</text>
+
+        <rect x="480" width="220" height="100" rx="6" fill="#1E293B" stroke="#334155"/>
+        <text x="500" y="34" font-family="'Inter', sans-serif" font-size="12" fill="#94A3B8">SYSTEM LATENCY</text>
+        <text x="500" y="70" font-family="'Manrope', sans-serif" font-weight="800" font-size="28" fill="#34D399">18ms</text>
+
+        <rect x="720" width="200" height="100" rx="6" fill="#1E293B" stroke="#334155"/>
+        <text x="740" y="34" font-family="'Inter', sans-serif" font-size="12" fill="#94A3B8">FLEET EFFICIENCY</text>
+        <text x="740" y="70" font-family="'Manrope', sans-serif" font-weight="800" font-size="28" fill="#A855F7">+14.2%</text>
+
+        <!-- Simulated Map / Graph Interface -->
+        <rect y="120" width="920" height="460" rx="6" fill="#1E293B" stroke="#334155"/>
+        <path d="M40 380 Q 200 240, 400 320 T 800 180" fill="none" stroke="#38BDF8" stroke-width="4"/>
+        <path d="M40 420 Q 240 380, 500 400 T 860 260" fill="none" stroke="#34D399" stroke-width="3" stroke-dasharray="6 6"/>
+        <circle cx="400" cy="320" r="8" fill="#38BDF8"/>
+        <rect x="340" y="270" width="120" height="32" rx="4" fill="#0F172A" stroke="#38BDF8"/>
+        <text x="400" y="290" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">TRUCK-729 &bull; EN ROUTE</text>
+
+        <circle cx="800" cy="180" r="8" fill="#34D399"/>
+        <rect x="740" y="130" width="120" height="32" rx="4" fill="#0F172A" stroke="#34D399"/>
+        <text x="800" y="150" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">HUB-BERLIN &bull; CLEAR</text>
+      </g>
+    
+    </g>
+  </svg>

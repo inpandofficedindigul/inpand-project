@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" fill="none">
+    <defs>
+      <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#121212"/>
+        <stop offset="100%" stop-color="#1C1C1E"/>
+      </linearGradient>
+    </defs>
+    
+    <!-- Outer Container -->
+    <rect width="1200" height="750" fill="#2C2C2E" rx="12"/>
+    <rect x="1" y="1" width="1198" height="748" fill="#121212" rx="11"/>
+
+    <!-- Browser Bar -->
+    <rect width="1200" height="48" fill="#1C1C1E" rx="11"/>
+    <path d="M0 36H1200V48H0z" fill="#1C1C1E"/>
+    <line x1="0" y1="48" x2="1200" y2="48" stroke="#2C2C2E" stroke-width="1"/>
+    
+    <!-- Window Controls -->
+    <circle cx="28" cy="24" r="6" fill="#FF5F56"/>
+    <circle cx="48" cy="24" r="6" fill="#FFBD2E"/>
+    <circle cx="68" cy="24" r="6" fill="#27C93F"/>
+
+    <!-- URL Bar -->
+    <rect x="120" y="12" width="480" height="24" rx="6" fill="#2C2C2E" stroke="#2C2C2E" stroke-width="1"/>
+    <circle cx="136" cy="24" r="3" fill="#315EFB"/>
+    <text x="148" y="28" font-family="'Inter', sans-serif" font-size="11" fill="#8E8E93" font-weight="500">https://apex-performance.com</text>
+
+    <!-- Tag Indicator -->
+    <rect x="1050" y="12" width="120" height="24" rx="4" fill="#8B5CF615"/>
+    <text x="1110" y="28" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#8B5CF6" text-anchor="middle">Web Application</text>
+
+    <!-- Main Content Area -->
+    <g transform="translate(0, 48)">
+      
+      <rect width="1200" height="702" fill="#13111C"/>
+      <rect width="1200" height="60" fill="#1C182B"/>
+      <text x="40" y="36" font-family="'Manrope', sans-serif" font-weight="800" font-size="18" fill="#A78BFA">APEX PERFORMANCE LAB</text>
+      <text x="880" y="36" font-family="'Inter', sans-serif" font-size="12" fill="#DDD6FE">WELCOME BACK, ELENA &bull; ATHLETE ID #892</text>
+
+      <g transform="translate(60, 90)">
+        <rect width="1080" height="120" rx="8" fill="#201B33" stroke="#362E54"/>
+        <text x="40" y="44" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#A78BFA">CURRENT CYCLE</text>
+        <text x="40" y="80" font-family="'Manrope', sans-serif" font-weight="800" font-size="26" fill="#FFF">Hypertrophy &amp; Neuromuscular Efficiency &bull; Week 4 of 12</text>
+        <rect x="880" y="40" width="160" height="42" rx="4" fill="#8B5CF6"/>
+        <text x="960" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF" text-anchor="middle">BOOK SESSION</text>
+
+        <!-- Weekly Grid -->
+        <rect y="150" width="680" height="420" rx="8" fill="#1C182B" stroke="#2C2644"/>
+        <text x="30" y="190" font-family="'Manrope', sans-serif" font-weight="700" font-size="18" fill="#FFF">Biometric Output &bull; VO2 Max &amp; Power</text>
+        <path d="M40 480 Q 200 340, 360 400 T 640 280" fill="none" stroke="#A78BFA" stroke-width="4"/>
+        <circle cx="640" cy="280" r="6" fill="#DDD6FE"/>
+        <text x="640" y="260" font-family="'Inter', sans-serif" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">PEAK 54.2 ml/kg</text>
+
+        <!-- Trainer Notes -->
+        <rect x="710" y="150" width="370" height="420" rx="8" fill="#1C182B" stroke="#2C2644"/>
+        <text x="740" y="190" font-family="'Manrope', sans-serif" font-weight="700" font-size="18" fill="#FFF">Trainer Direct Dispatch</text>
+        <rect x="740" y="220" width="310" height="120" rx="6" fill="#26213B"/>
+        <text x="760" y="250" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#A78BFA">COACH MARCUS &bull; 08:30 AM</text>
+        <text x="760" y="280" font-family="'Inter', sans-serif" font-size="13" fill="#DDD6FE">Rest interval maintained below 75s. Eccentric tempo was flawless today.</text>
+      </g>
+    
+    </g>
+  </svg>
