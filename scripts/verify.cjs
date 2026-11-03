@@ -97,6 +97,37 @@ assert(cardFile.includes('target="_blank"'), 'Card opens live website in new bro
 assert(cardFile.includes('rel="noopener noreferrer"'), 'Card uses secure rel attributes');
 assert(cardFile.includes('ImageOff'), 'Card contains clean placeholder fallback for missing images');
 
+// 4b. Interactive Laptop Showcase Requirements
+console.log('\n=== 4B. VERIFYING LAPTOP SHOWCASE REDESIGN REQUIREMENTS ===');
+assert(projectsPage.includes('LaptopShowcase'), 'Projects page integrates LaptopShowcase component');
+assert(fs.existsSync('src/components/projects/LaptopShowcase.tsx'), 'LaptopShowcase.tsx exists');
+assert(fs.existsSync('src/components/projects/LaptopDevice.tsx'), 'LaptopDevice.tsx exists');
+assert(fs.existsSync('src/components/projects/ProjectThumbnails.tsx'), 'ProjectThumbnails.tsx exists');
+assert(fs.existsSync('src/styles/laptop-showcase.css'), 'laptop-showcase.css exists');
+
+const showcaseFile = fs.readFileSync('src/components/projects/LaptopShowcase.tsx', 'utf-8');
+assert(showcaseFile.includes('LaptopDevice'), 'Showcase mounts realistic LaptopDevice');
+assert(showcaseFile.includes('ProjectThumbnails'), 'Showcase mounts ProjectThumbnails navigation');
+assert(showcaseFile.includes('PROJECT'), 'Showcase displays PROJECT counter (e.g. PROJECT 01 / 14)');
+assert(showcaseFile.includes('Visit Live Website'), 'Showcase has Visit Live Website button');
+assert(showcaseFile.includes('target="_blank"'), 'Showcase external link opens in new tab');
+assert(showcaseFile.includes('Previous') && showcaseFile.includes('Next'), 'Showcase contains Previous and Next navigation controls');
+assert(showcaseFile.includes('activeProject.shortDescription'), 'Showcase displays project description');
+assert(showcaseFile.includes('activeProject.category'), 'Showcase displays project category');
+assert(showcaseFile.includes('activeProject.websiteType'), 'Showcase displays website type badge');
+
+const deviceFile = fs.readFileSync('src/components/projects/LaptopDevice.tsx', 'utf-8');
+assert(deviceFile.includes('requestAnimationFrame'), 'Device uses requestAnimationFrame for controlled auto-scroll');
+assert(deviceFile.includes('onMouseEnter') && deviceFile.includes('onMouseLeave'), 'Device pauses auto-scroll on hover and resumes on leave');
+assert(deviceFile.includes('laptop-screen-viewport'), 'Device uses strictly clipped viewport');
+assert(deviceFile.includes('translate3d'), 'Device translates screenshot vertically while laptop frame stays stationary');
+assert(deviceFile.includes('project.domain'), 'Device provides direct live preview access');
+
+const thumbsFile = fs.readFileSync('src/components/projects/ProjectThumbnails.tsx', 'utf-8');
+assert(thumbsFile.includes('onSelectProject'), 'Thumbnails selector triggers project selection');
+assert(thumbsFile.includes('scrollIntoView'), 'Thumbnails selector auto-scrolls active project into view');
+assert(thumbsFile.includes('overflow-x-auto'), 'Thumbnails strip enables horizontal scrolling');
+
 // 5. Project Detail Interaction Requirements
 console.log('\n=== 5. VERIFYING PROJECT DETAIL REQUIREMENTS ===');
 const detailFile = fs.readFileSync('src/pages/ProjectDetailPage.tsx', 'utf-8');

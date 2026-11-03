@@ -3,7 +3,8 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { PROJECTS, getCategoryCounts } from '../data/projects';
 import { findCategory } from '../data/categories';
 import { ProjectFilter } from '../components/projects/ProjectFilter';
-import { ProjectGrid } from '../components/projects/ProjectGrid';
+import { LaptopShowcase } from '../components/projects/LaptopShowcase';
+import { ProjectEmptyState } from '../components/projects/ProjectEmptyState';
 import { SEOHead } from '../components/common/SEOHead';
 import { ArrowLeft } from 'lucide-react';
 
@@ -106,13 +107,19 @@ export const ProjectsPage: React.FC = () => {
           />
         </div>
 
-        {/* Project Cards Grid */}
-        <ProjectGrid
-          projects={filteredProjects}
-          categoryName={activeCategory?.name}
-          isFiltered={Boolean(activeCategory)}
-          onResetFilter={handleResetFilter}
-        />
+        {/* Interactive Laptop Showcase Experience */}
+        {filteredProjects.length > 0 ? (
+          <LaptopShowcase
+            projects={filteredProjects}
+            onActiveProjectChange={() => {}}
+          />
+        ) : (
+          <ProjectEmptyState
+            categoryName={activeCategory?.name}
+            isFiltered={Boolean(activeCategory)}
+            onResetFilter={handleResetFilter}
+          />
+        )}
       </div>
     </div>
   );
