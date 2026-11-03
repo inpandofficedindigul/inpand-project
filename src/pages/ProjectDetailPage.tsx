@@ -1,33 +1,30 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, Play, MessageCircle, Mail, Check, Globe, HelpCircle } from 'lucide-react';
+import { ArrowLeft, ExternalLink, MessageCircle, Mail, Globe, HelpCircle, Image as ImageIcon } from 'lucide-react';
 import { getProjectBySlug, getRelatedProjects } from '../data/projects';
 import { generateProjectWhatsAppLink, generateProjectEmailLink, isValidUrl } from '../lib/config';
 import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
-import { VideoModal } from '../components/common/VideoModal';
 import { SEOHead } from '../components/common/SEOHead';
 import { ProjectCard } from '../components/projects/ProjectCard';
 
 export const ProjectDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
+  const [showFullHeight, setShowFullHeight] = useState(false);
 
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [selectedGalleryImg, setSelectedGalleryImg] = useState<string | null>(null);
-
-  // Missing Project Route Handling (Section 8)
+  // Missing Project Route Handling
   if (!project) {
     return (
       <div className="py-20 md:py-28">
-        <SEOHead title="Project Not Found — Digital Showcase" />
+        <SEOHead title="Project Not Found — INPAND Portfolio" />
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-6 shadow-subtle text-accent">
             <HelpCircle size={26} />
           </div>
 
           <span className="text-xs font-bold uppercase tracking-widest text-accent mb-2 block">
-            Project Index Notice
+            Portfolio Notice
           </span>
 
           <h1 className="font-heading font-extrabold text-3xl sm:text-5xl text-primary tracking-tight mb-4">
@@ -35,15 +32,15 @@ export const ProjectDetailPage: React.FC = () => {
           </h1>
 
           <p className="text-secondary text-sm sm:text-base leading-relaxed mb-8">
-            The requested project ({slug ? `"${slug}"` : 'record'}) is not currently published in the INPAND Technologies digital showcase, or may be undergoing asset review and verification.
+            The requested project ({slug ? `"${slug}"` : 'record'}) is not listed in our portfolio directory.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button to="/projects" variant="primary" size="md" icon={<ArrowLeft size={16} />} iconPosition="left">
-              View Published Projects
+              Back to Portfolio
             </Button>
             <Button to="/contact" variant="secondary" size="md">
-              Discuss Custom Requirement
+              Contact INPAND
             </Button>
           </div>
         </div>
@@ -52,19 +49,15 @@ export const ProjectDetailPage: React.FC = () => {
   }
 
   const relatedProjects = getRelatedProjects(project.slug, project.category, 2);
-  const hasVideo = Boolean(project.previewVideo && project.previewVideo.trim().length > 0);
   const hasValidDomain = isValidUrl(project.domain);
   const whatsappUrl = generateProjectWhatsAppLink(project.title);
   const emailUrl = generateProjectEmailLink(project.title, project.category);
-  const allScreenshots = [
-    project.thumbnail,
-    ...(project.screenshots || []),
-  ].filter(Boolean);
+  const displayImage = project.fullScreenshot || project.thumbnail;
 
   return (
     <article className="py-10 md:py-16">
       <SEOHead
-        title={project.title}
+        title={`${project.title} — Client Portfolio`}
         description={project.shortDescription}
         image={project.thumbnail}
       />
@@ -81,19 +74,24 @@ export const ProjectDetailPage: React.FC = () => {
             <span>Back to All Projects</span>
           </Link>
 
-          <Badge variant="accent" size="sm">
-            {project.category}
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="accent" size="sm">
+              {project.category}
+            </Badge>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-secondary bg-[#F2F2F0] px-2 py-0.5 rounded-sm">
+              {project.websiteType}
+            </span>
+          </div>
         </div>
 
         {/* Project Header Info */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 items-start">
           <div className="lg:col-span-8">
-            {project.completionYear && (
-              <span className="text-xs text-secondary font-mono block mb-2">
-                Delivered &bull; {project.completionYear}
-              </span>
-            )}
+            <div className="flex items-center gap-2 text-xs text-secondary mb-3">
+              <span className="font-semibold text-accent uppercase tracking-wider">{project.category}</span>
+              <span>&bull;</span>
+              <span>{project.websiteType}</span>
+            </div>
 
             <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl text-primary tracking-tight leading-[1.1] mb-6">
               {project.title}
@@ -104,193 +102,188 @@ export const ProjectDetailPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Project Enquiry Box */}
+          {/* Quick Enquiries / Live Website Action Box */}
           <div className="lg:col-span-4 bg-white p-6 sm:p-7 rounded-md border border-border shadow-subtle flex flex-col gap-4">
             <span className="text-xs font-bold uppercase tracking-wider text-primary pb-2 border-b border-border">
-              Discuss a Similar Project
+              Website Information
             </span>
-            
-            <p className="text-xs text-secondary leading-relaxed">
-              Interested in developing a solution with comparable architecture and requirements? Contact our engineering team:
-            </p>
 
-            <div className="flex flex-col gap-2.5 pt-1">
-              <Button
-                href={whatsappUrl}
-                target="_blank"
-                variant="accent"
-                size="md"
-                className="w-full justify-center"
-                icon={<MessageCircle size={16} />}
-              >
-                Discuss on WhatsApp
-              </Button>
-
-              <Button
-                href={emailUrl}
-                variant="secondary"
-                size="md"
-                className="w-full justify-center"
-                icon={<Mail size={16} />}
-              >
-                Discuss via Email
-              </Button>
-            </div>
-
-            {/* Visit Live Website (Rendered ONLY if verified domain exists) */}
+            {/* Visit Live Website CTA (Section 4 & 5) */}
             {hasValidDomain && (
-              <div className="pt-3 border-t border-border">
+              <div>
                 <a
                   href={project.domain}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-primary hover:text-accent bg-[#F7F7F5] hover:bg-[#EFEFEA] rounded-sm transition-colors border border-border"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-sm transition-colors shadow-subtle group"
                 >
-                  <Globe size={14} />
-                  <span>Visit Client Website</span>
-                  <ArrowUpRight size={14} />
+                  <Globe size={16} />
+                  <span>Visit Live Website</span>
+                  <ExternalLink size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
+
+                <div className="mt-2.5 text-center">
+                  <a
+                    href={project.domain}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-secondary hover:text-accent font-mono truncate block"
+                  >
+                    {project.domain}
+                  </a>
+                </div>
               </div>
             )}
-          </div>
-        </div>
 
-        {/* Main Screenshot Showcase */}
-        <div className="mb-14 rounded-lg overflow-hidden border border-border bg-white shadow-card relative group">
-          <div className="relative aspect-[16/9] w-full bg-[#18181A] overflow-hidden">
-            <img
-              src={selectedGalleryImg || project.thumbnail}
-              alt={`Main screenshot of ${project.title}`}
-              fetchPriority="high"
-              className="w-full h-full object-cover object-top transition-all duration-300"
-            />
+            <div className="pt-2 border-t border-border flex flex-col gap-2.5">
+              <span className="text-xs font-semibold text-secondary">
+                Discuss a similar digital project:
+              </span>
 
-            {/* Video Preview Action (Shown ONLY when a real video asset exists) */}
-            {hasVideo && (
-              <button
-                onClick={() => setIsVideoModalOpen(true)}
-                className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex items-center gap-2 px-5 py-2.5 bg-black/85 hover:bg-black text-white text-xs sm:text-sm font-semibold rounded-sm backdrop-blur-md transition-all duration-200 border border-white/20 shadow-xl group-hover:scale-105"
+              <Button
+                href={whatsappUrl}
+                target="_blank"
+                variant="secondary"
+                size="md"
+                className="w-full justify-center"
+                icon={<MessageCircle size={16} />}
               >
-                <Play size={16} className="fill-white" />
-                <span>Watch Preview Video</span>
-              </button>
-            )}
-          </div>
-        </div>
+                Enquire via WhatsApp
+              </Button>
 
-        {/* Additional Screenshots (Shown ONLY if available) */}
-        {allScreenshots.length > 1 && (
-          <div className="mb-14">
-            <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-secondary mb-4">
-              Project Screen Gallery
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {allScreenshots.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedGalleryImg(img)}
-                  className={`relative aspect-[16/10] rounded-sm overflow-hidden border transition-all ${
-                    (selectedGalleryImg || project.thumbnail) === img
-                      ? 'border-accent ring-2 ring-accent/30'
-                      : 'border-border hover:border-border-strong opacity-80 hover:opacity-100'
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`Screenshot view ${idx + 1}`}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top"
-                  />
-                </button>
-              ))}
+              <Button
+                href={emailUrl}
+                variant="outline"
+                size="md"
+                className="w-full justify-center"
+                icon={<Mail size={16} />}
+              >
+                Enquire via Email
+              </Button>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* Overview & Technical Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 pt-8 border-t border-border">
-          <div className="lg:col-span-8 flex flex-col gap-10">
-            {project.overview && (
-              <div>
-                <h2 className="font-heading font-bold text-2xl text-primary mb-4">
-                  Project Overview
-                </h2>
-                <p className="text-secondary text-base sm:text-lg leading-relaxed whitespace-pre-line">
-                  {project.overview}
-                </p>
-              </div>
-            )}
+        {/* Large Actual Screenshot Showcase (Section 4) */}
+        <div className="mb-14 rounded-lg overflow-hidden border border-border bg-white shadow-card">
+          {/* Top Bar with Browser Style Header */}
+          <div className="flex items-center justify-between px-5 py-3 bg-[#F4F4F2] border-b border-border text-xs text-secondary">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+              <span className="ml-3 font-mono text-[11px] text-primary truncate max-w-xs sm:max-w-md">
+                {project.domain}
+              </span>
+            </div>
 
-            {project.features && project.features.length > 0 && (
-              <div>
-                <h3 className="font-heading font-bold text-xl text-primary mb-4">
-                  Key Capabilities Delivered
-                </h3>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {project.features.map((feat, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start gap-3 p-4 bg-white rounded-sm border border-border text-sm text-primary"
-                    >
-                      <Check size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowFullHeight(!showFullHeight)}
+                className="text-xs font-semibold text-accent hover:underline flex items-center gap-1"
+              >
+                <ImageIcon size={13} />
+                <span>{showFullHeight ? 'Compact View' : 'Full Page View'}</span>
+              </button>
+
+              {hasValidDomain && (
+                <a
+                  href={project.domain}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary hover:text-accent inline-flex items-center gap-1"
+                >
+                  <span>Open Site</span>
+                  <ExternalLink size={12} />
+                </a>
+              )}
+            </div>
           </div>
 
-          <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-md border border-border flex flex-col gap-5">
-              <h3 className="font-heading font-bold text-base text-primary pb-3 border-b border-border">
-                Project Details
+          {/* Screenshot Container */}
+          <div
+            className={`w-full bg-[#FAFAFA] transition-all duration-300 ${
+              showFullHeight
+                ? 'h-auto'
+                : 'max-h-[640px] md:max-h-[720px] overflow-y-auto'
+            }`}
+          >
+            <img
+              src={displayImage}
+              alt={`Full website screenshot of ${project.title}`}
+              fetchPriority="high"
+              className="w-full h-auto object-top"
+            />
+          </div>
+
+          <div className="p-3 bg-[#F4F4F2] border-t border-border flex items-center justify-between text-xs text-secondary">
+            <span>Actual Client Website Screenshot</span>
+            <button
+              onClick={() => setShowFullHeight(!showFullHeight)}
+              className="text-accent font-semibold hover:underline"
+            >
+              {showFullHeight ? 'Scroll to Top' : 'Expand Full Height Screenshot'}
+            </button>
+          </div>
+        </div>
+
+        {/* Project Classification & Metadata Breakdown */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 pt-8 border-t border-border">
+          <div className="lg:col-span-8 flex flex-col gap-6">
+            <h2 className="font-heading font-bold text-2xl text-primary">
+              About This Project
+            </h2>
+            <p className="text-secondary text-base sm:text-lg leading-relaxed">
+              {project.shortDescription}
+            </p>
+
+            <div className="p-6 bg-white rounded-md border border-border flex flex-col gap-3">
+              <h3 className="font-heading font-bold text-base text-primary">
+                Website Classification
               </h3>
+              <p className="text-sm text-secondary leading-relaxed">
+                This project was engineered and deployed as a <strong>{project.websiteType}</strong> website within the <strong>{project.category}</strong> domain, customized to deliver an effective digital user journey.
+              </p>
+            </div>
+          </div>
 
-              <div className="flex flex-col gap-4 text-xs sm:text-sm">
-                <div>
-                  <span className="text-secondary block text-xs mb-1">Category</span>
-                  <span className="font-semibold text-primary">{project.category}</span>
-                </div>
+          <div className="lg:col-span-4 bg-white p-6 rounded-md border border-border flex flex-col gap-4">
+            <h3 className="font-heading font-bold text-base text-primary pb-3 border-b border-border">
+              Project Summary
+            </h3>
 
-                {project.completionYear && (
-                  <div>
-                    <span className="text-secondary block text-xs mb-1">Delivery</span>
-                    <span className="font-semibold text-primary">{project.completionYear}</span>
-                  </div>
-                )}
-
-                <div>
-                  <span className="text-secondary block text-xs mb-1">Deployment Status</span>
-                  {hasValidDomain ? (
-                    <span className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      Live in Production
-                    </span>
-                  ) : (
-                    <span className="text-secondary font-medium">Delivered to Client</span>
-                  )}
-                </div>
+            <div className="flex flex-col gap-3 text-xs sm:text-sm">
+              <div>
+                <span className="text-secondary block text-xs mb-0.5">Project Name</span>
+                <span className="font-semibold text-primary">{project.title}</span>
               </div>
 
-              {/* Technologies Used if verified */}
-              {project.technologies && project.technologies.length > 0 && (
-                <div className="pt-4 border-t border-border">
-                  <span className="text-secondary block text-xs mb-2.5 font-medium">
-                    Technologies
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-xs font-medium text-primary bg-[#F4F4F2] px-2.5 py-1 rounded-sm border border-border/80"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <div>
+                <span className="text-secondary block text-xs mb-0.5">Business Category</span>
+                <span className="font-semibold text-primary">{project.category}</span>
+              </div>
+
+              <div>
+                <span className="text-secondary block text-xs mb-0.5">Website Classification</span>
+                <span className="font-semibold text-primary">{project.websiteType}</span>
+              </div>
+
+              <div>
+                <span className="text-secondary block text-xs mb-0.5">Live Production URL</span>
+                {hasValidDomain ? (
+                  <a
+                    href={project.domain}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-accent hover:underline break-all text-xs inline-flex items-center gap-1"
+                  >
+                    <span>{project.domain}</span>
+                    <ExternalLink size={12} className="shrink-0" />
+                  </a>
+                ) : (
+                  <span className="text-secondary">Delivered</span>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -301,7 +294,7 @@ export const ProjectDetailPage: React.FC = () => {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-accent mb-1 block">
-                  More in Category
+                  More From Our Portfolio
                 </span>
                 <h3 className="font-heading font-bold text-2xl text-primary">
                   Related Projects
@@ -312,7 +305,7 @@ export const ProjectDetailPage: React.FC = () => {
                 to="/projects"
                 className="text-xs sm:text-sm font-semibold text-primary hover:text-accent transition-colors"
               >
-                View Full Showcase &rarr;
+                View All 14 Projects &rarr;
               </Link>
             </div>
 
@@ -325,16 +318,6 @@ export const ProjectDetailPage: React.FC = () => {
         )}
 
       </div>
-
-      {/* Video Modal (Rendered ONLY if preview video exists) */}
-      {hasVideo && (
-        <VideoModal
-          isOpen={isVideoModalOpen}
-          onClose={() => setIsVideoModalOpen(false)}
-          videoSrc={project.previewVideo!}
-          projectTitle={project.title}
-        />
-      )}
     </article>
   );
 };

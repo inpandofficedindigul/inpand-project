@@ -42,12 +42,12 @@ export const ProjectsPage: React.FC = () => {
     setSearchParams(nextParams);
   }, [searchParams, setSearchParams]);
 
-  // Filter projects by category
+  // Filter projects by category: checks if project.categories includes category name
   const filteredProjects = useMemo(() => {
-    if (!activeCategory) {
+    if (!activeCategory || activeCategory.slug === 'all') {
       return PROJECTS;
     }
-    return PROJECTS.filter((p) => p.category === activeCategory.name);
+    return PROJECTS.filter((p) => p.categories.includes(activeCategory.name));
   }, [activeCategory]);
 
   const totalCount = filteredProjects.length;
@@ -55,11 +55,11 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <SEOHead
-        title={activeCategory ? `${activeCategory.name} — Project Collection` : 'All Projects — Digital Showcase'}
+        title={activeCategory ? `${activeCategory.name} — Our Portfolio` : 'Our Portfolio — Completed Client Websites'}
         description={
           activeCategory
-            ? `Explore ${activeCategory.name.toLowerCase()} developed by INPAND Technologies. ${activeCategory.description}`
-            : 'Explore websites, dynamic portals, e-commerce storefronts, and web applications developed by INPAND Technologies.'
+            ? `Explore ${activeCategory.name.toLowerCase()} delivered by INPAND Technologies. ${activeCategory.description}`
+            : 'Explore a collection of digital platforms, business websites and technology solutions delivered by INPAND Technologies.'
         }
       />
 
@@ -76,28 +76,28 @@ export const ProjectsPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Editorial Page Header */}
+        {/* Header Section (Section 4 Requirements) */}
         <div className="max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-border rounded-sm text-xs font-semibold uppercase tracking-wider text-primary mb-4 shadow-subtle">
-            <span>Project Collection</span>
+            <span className="font-bold text-accent">OUR PORTFOLIO</span>
             <span className="text-border">&bull;</span>
-            <span className="text-accent">
-              {totalCount} {totalCount === 1 ? 'Project Published' : 'Projects Published'}
+            <span className="text-secondary font-mono">
+              {totalCount} {totalCount === 1 ? 'Project' : 'Projects'}
             </span>
           </div>
 
-          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-primary tracking-tight">
-            {activeCategory ? activeCategory.name : 'All Projects'}
+          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-primary tracking-tight leading-[1.1]">
+            Building Digital Experiences That Matter.
           </h1>
 
           <p className="text-base sm:text-lg text-secondary mt-4 leading-relaxed">
             {activeCategory
               ? activeCategory.description
-              : 'Browse our digital showcase of websites, dynamic web platforms, and tailored web applications developed by INPAND Technologies.'}
+              : 'Explore a collection of digital platforms, business websites and technology solutions delivered by INPAND Technologies.'}
           </p>
         </div>
 
-        {/* Category Filters Bar */}
+        {/* Functional Category Filters */}
         <div className="mb-10">
           <ProjectFilter
             activeCategorySlug={activeCategorySlug}
@@ -106,7 +106,7 @@ export const ProjectsPage: React.FC = () => {
           />
         </div>
 
-        {/* Dynamic Project Grid or Curated Empty State */}
+        {/* Project Cards Grid */}
         <ProjectGrid
           projects={filteredProjects}
           categoryName={activeCategory?.name}

@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
               Categories
             </h4>
             <ul className="flex flex-col gap-2.5 text-sm text-secondary">
-              {PROJECT_CATEGORIES.map((cat) => (
+              {PROJECT_CATEGORIES.filter((c) => c.slug !== 'all').slice(0, 6).map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     to={`/projects?category=${cat.slug}`}
@@ -88,6 +88,14 @@ export const Footer: React.FC = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/projects"
+                  className="text-xs text-accent font-semibold hover:underline"
+                >
+                  View All 14 Projects &rarr;
+                </Link>
+              </li>
             </ul>
           </div>
 

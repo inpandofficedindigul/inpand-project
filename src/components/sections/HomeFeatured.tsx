@@ -1,38 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { Project } from '../../types/project';
 import { ProjectCard } from '../projects/ProjectCard';
 import { ProjectEmptyState } from '../projects/ProjectEmptyState';
-import { VideoModal } from '../common/VideoModal';
 
 interface HomeFeaturedProps {
   featuredProjects: Project[];
 }
 
 export const HomeFeatured: React.FC<HomeFeaturedProps> = ({ featuredProjects }) => {
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    videoUrl: string;
-    title: string;
-  }>({
-    isOpen: false,
-    videoUrl: '',
-    title: '',
-  });
-
-  const handleOpenVideo = (videoUrl: string, title: string) => {
-    setModalState({
-      isOpen: true,
-      videoUrl,
-      title,
-    });
-  };
-
-  const handleCloseModal = () => {
-    setModalState((prev) => ({ ...prev, isOpen: false }));
-  };
-
   const hasProjects = featuredProjects.length > 0;
 
   return (
@@ -43,13 +20,13 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({ featuredProjects }) 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="max-w-xl">
             <span className="text-xs font-bold uppercase tracking-widest text-accent mb-2 block">
-              Digital Showcase
+              Featured Work
             </span>
             <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-primary tracking-tight">
-              Featured Client Work
+              Client Websites &amp; Digital Solutions
             </h2>
             <p className="text-secondary text-sm sm:text-base mt-3 leading-relaxed">
-              Explore websites and digital solutions developed by INPAND Technologies. Designed for speed, conversion, and architectural reliability.
+              Explore completed websites and web platforms engineered by INPAND Technologies for clients across diverse industries.
             </p>
           </div>
 
@@ -57,20 +34,19 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({ featuredProjects }) 
             to="/projects"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors pb-1 border-b border-primary/20 hover:border-accent"
           >
-            <span>View All Projects</span>
+            <span>View All 14 Projects</span>
             <ArrowUpRight size={16} />
           </Link>
         </div>
 
-        {/* Dynamic State: Real Project Grid or Curated Preparation Notice */}
+        {/* Dynamic State: Real Project Grid or Preparation Notice */}
         {hasProjects ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {featuredProjects.map((project, idx) => (
               <ProjectCard
                 key={project.id}
                 project={project}
-                onOpenVideo={handleOpenVideo}
-                priority={idx < 2}
+                priority={idx < 3}
               />
             ))}
           </div>
@@ -79,13 +55,6 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({ featuredProjects }) 
         )}
 
       </div>
-
-      <VideoModal
-        isOpen={modalState.isOpen}
-        onClose={handleCloseModal}
-        videoSrc={modalState.videoUrl}
-        projectTitle={modalState.title}
-      />
     </section>
   );
 };

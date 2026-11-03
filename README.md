@@ -9,11 +9,11 @@ Tagline: *"Transform Ideas Into Business Growth"*
 
 ## Primary Objectives
 
-- **Client Discovery**: Prospective clients can explore real websites and digital solutions built by INPAND Technologies across key categories (*Static Websites*, *Dynamic Websites*, *E-Commerce*, *Web Applications*).
+- **Client Discovery**: Prospective clients can explore 14 real websites and digital solutions built by INPAND Technologies across key categories (*Dynamic Websites*, *Static Websites*, *Hybrid Websites*, *E-Commerce*, *SaaS & Technology*, *Media & Entertainment*, *Education*, *Real Estate*, *Business & Services*).
 - **Direct Communication**: Prospective clients can directly reach out via official WhatsApp (`9080394828`), email (`info@inpand.com`), or telephone.
 - **Client Domain Linking**: Secure external links directly to live client domains (`target="_blank" rel="noopener noreferrer"`).
-- **Media Previews**: HTML5 video preview modal with custom scrubber, volume, keyboard controls, and background scroll locking.
-- **Content Purity & Production Readiness**: Zero fabricated client names, zero fake testimonials, zero fake statistics, and zero dummy placeholder projects. Ready to dynamically display real client projects the moment approved data is added to `src/data/projects.ts`.
+- **High-Performance Image Optimization**: Dual WebP thumbnails + full-resolution WebP screenshots alongside original PNG captures, with responsive loading and visual fallback placeholders.
+- **Content Purity & Production Readiness**: 14 fully integrated client projects with real screenshots, verified domains, and accurate business classifications. Zero fabricated client names or placeholder projects.
 
 ---
 
@@ -80,6 +80,28 @@ npm run preview
 ```powershell
 node scripts/verify.cjs
 ```
+Runs 103 automated checks validating project domains, high-res screenshots, thumbnails, filter counts, and UI requirements.
+
+---
+
+## Integrated Client Projects (14 Published)
+
+| # | Project | Domain | Business Category | Website Type |
+|---|---|---|---|---|
+| 1 | **Mei Alai** | [meialai.com](https://www.meialai.com/) | Media & Entertainment | Dynamic |
+| 2 | **Namma Jilla** | [nammajilla.com](https://www.nammajilla.com/) | E-commerce / Local Platform | E-commerce |
+| 3 | **Innomedex Conferences** | [innomedexconferences.com](https://www.innomedexconferences.com/) | Events & Conferences | Dynamic |
+| 4 | **Mei Alai Sports** | [meialaisports.com](https://meialaisports.com/) | Sports Platform | Dynamic / Hybrid |
+| 5 | **Nizhal Visuals** | [nizhalvisuals.com](https://www.nizhalvisuals.com/) | Photography & Visual Media | Static / Hybrid |
+| 6 | **Moonlight Enterprises** | [moonlightenterprises.co.in](https://moonlightenterprises.co.in/) | Business / E-commerce | E-commerce |
+| 7 | **Eesan TV** | [eesantv.com](https://www.eesantv.com/) | Media & Entertainment | Static |
+| 8 | **Image Scraper Studio** | [imagescrapper.com](https://www.imagescrapper.com/) | SaaS / Technology | Dynamic |
+| 9 | **Focus Tourism Eventz** | [focustourismeventz.com](https://www.focustourismeventz.com/) | Tourism & Travel | E-commerce |
+| 10 | **Inpand Academy** | [inpandacademy.com](https://inpandacademy.com/) | Education & Training | Static / Hybrid |
+| 11 | **MED Jewel Manufacturing** | [medjewelmanufacturing.com](https://medjewelmanufacturing.com/) | Jewellery Manufacturing | Static |
+| 12 | **Dove Education Consultancy** | [doveeducationconsultancy.com](https://doveeducationconsultancy.com/) | Education Consultancy | Static / Hybrid |
+| 13 | **Land Plot Real Estates** | [landplotrealestates.com](https://landplotrealestates.com/) | Real Estate | Static |
+| 14 | **Kumar's Real Estate** | [kumarsrealestate.com](https://kumarsrealestate.com/) | Real Estate | Dynamic / Hybrid |
 
 ---
 

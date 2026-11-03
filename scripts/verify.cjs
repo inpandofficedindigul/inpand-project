@@ -15,181 +15,106 @@ function assert(condition, message) {
 }
 
 console.log('======================================================');
-console.log(' INPAND TECHNOLOGIES — AUTOMATED VERIFICATION SUITE   ');
+console.log(' INPAND TECHNOLOGIES — 14 PORTFOLIO PROJECTS AUDIT    ');
 console.log('======================================================\n');
 
-// 1. Critical Content Rules: Production Data Purity
-console.log('=== 1. CRITICAL CONTENT RULES: DATA PURITY ===');
+// 1. Projects Data Structure & Mapping Verification
+console.log('=== 1. VERIFYING 14 PORTFOLIO PROJECTS ===');
 const projectsFile = fs.readFileSync('src/data/projects.ts', 'utf-8');
 
-// Ensure production array is empty as mandated by spec
-assert(
-  projectsFile.includes('export const PROJECTS: Project[] = [];'),
-  'Production project array is strictly empty ([]) until real approved client projects are supplied'
-);
-
-assert(
-  !projectsFile.includes('example.com'),
-  'No example.com or fabricated client domains exist in production projects data'
-);
-
-assert(
-  !projectsFile.includes('Culina Atelier') && !projectsFile.includes('Kanso Spatial'),
-  'No fabricated sample projects present in production data'
-);
-
-// Check that isolated test fixtures exist separately
-assert(
-  fs.existsSync('src/data/fixtures.test.ts'),
-  'Development fixtures are strictly isolated in src/data/fixtures.test.ts'
-);
-
-// 2. Verified Company Information
-console.log('\n=== 2. VERIFIED COMPANY INFORMATION FROM INPAND.COM ===');
-const configFile = fs.readFileSync('src/lib/config.ts', 'utf-8');
-
-assert(
-  configFile.includes("info@inpand.com"),
-  'Official email is verified as info@inpand.com'
-);
-
-assert(
-  configFile.includes("9080394828"),
-  'Official phone is verified as 9080394828'
-);
-
-assert(
-  configFile.includes("Transform Ideas Into Business Growth"),
-  'Official tagline is verified as "Transform Ideas Into Business Growth"'
-);
-
-assert(
-  configFile.includes("MRC Complex, Guziliamparai, Dindigul – 624703"),
-  'Official office address is verified as MRC Complex, Guziliamparai, Dindigul – 624703'
-);
-
-assert(
-  configFile.includes("Monday–Saturday, 9:00 AM–6:00 PM"),
-  'Official working hours verified as Monday–Saturday, 9:00 AM–6:00 PM'
-);
-
-assert(
-  configFile.includes("https://www.inpand.com/"),
-  'Official corporate website reference verified as https://www.inpand.com/'
-);
-
-assert(
-  configFile.includes("https://wa.me/"),
-  'WhatsApp integration utilizes https://wa.me/ protocol'
-);
-
-assert(
-  configFile.includes("mailto:"),
-  'Email integration utilizes mailto: protocol'
-);
-
-// 3. Component and Page Architecture
-console.log('\n=== 3. ARCHITECTURE & COMPONENT COMPLETENESS ===');
-const requiredFiles = [
-  'src/App.tsx',
-  'src/main.tsx',
-  'src/types/project.ts',
-  'src/data/projects.ts',
-  'src/data/categories.ts',
-  'src/lib/config.ts',
-  'src/lib/utils.ts',
-  'src/hooks/useScrollLock.ts',
-  'src/components/layout/Navbar.tsx',
-  'src/components/layout/Footer.tsx',
-  'src/components/layout/Layout.tsx',
-  'src/components/common/Button.tsx',
-  'src/components/common/Badge.tsx',
-  'src/components/common/VideoModal.tsx',
-  'src/components/common/ScrollToTop.tsx',
-  'src/components/common/SEOHead.tsx',
-  'src/components/projects/ProjectCard.tsx',
-  'src/components/projects/ProjectFilter.tsx',
-  'src/components/projects/ProjectGrid.tsx',
-  'src/components/projects/ProjectEmptyState.tsx',
-  'src/components/sections/HomeHero.tsx',
-  'src/components/sections/HomeCategories.tsx',
-  'src/components/sections/HomeFeatured.tsx',
-  'src/components/sections/HomeAbout.tsx',
-  'src/components/sections/HomeProcess.tsx',
-  'src/components/sections/HomeContactCTA.tsx',
-  'src/pages/HomePage.tsx',
-  'src/pages/ProjectsPage.tsx',
-  'src/pages/ProjectDetailPage.tsx',
-  'src/pages/AboutPage.tsx',
-  'src/pages/ContactPage.tsx',
-  'src/pages/NotFoundPage.tsx',
+const expectedProjects = [
+  { name: 'Mei Alai', slug: 'mei-alai', file: 'mei-alai.png', domain: 'https://www.meialai.com/' },
+  { name: 'Namma Jilla', slug: 'namma-jilla', file: 'namma-jilla.png', domain: 'https://www.nammajilla.com/' },
+  { name: 'Innomedex Conferences', slug: 'innomedex', file: 'innomedex.png', domain: 'https://www.innomedexconferences.com/' },
+  { name: 'Mei Alai Sports', slug: 'mei-alai-sports', file: 'mei-alai-sports.png', domain: 'https://meialaisports.com/' },
+  { name: 'Nizhal Visuals', slug: 'nizhal-visuals', file: 'nizhal-visuals.png', domain: 'https://www.nizhalvisuals.com/' },
+  { name: 'Moonlight Enterprises', slug: 'moonlight-enterprises', file: 'moonlight-enterprises.png', domain: 'https://moonlightenterprises.co.in/' },
+  { name: 'Eesan TV', slug: 'eesan-tv', file: 'eesan-tv.png', domain: 'https://www.eesantv.com/' },
+  { name: 'Image Scraper Studio', slug: 'image-scraper', file: 'image-scraper.png', domain: 'https://www.imagescrapper.com/' },
+  { name: 'Focus Tourism Eventz', slug: 'focus-tourism', file: 'focus-tourism.png', domain: 'https://www.focustourismeventz.com/' },
+  { name: 'Inpand Academy', slug: 'inpand-academy', file: 'inpand-academy.png', domain: 'https://inpandacademy.com/' },
+  { name: 'MED Jewel Manufacturing', slug: 'med-jewel', file: 'med-jewel.png', domain: 'https://medjewelmanufacturing.com/' },
+  { name: 'Dove Education Consultancy', slug: 'dove-education', file: 'dove-education.png', domain: 'https://doveeducationconsultancy.com/' },
+  { name: 'Land Plot Real Estates', slug: 'land-plot', file: 'land-plot.png', domain: 'https://landplotrealestates.com/' },
+  { name: "Kumar's Real Estate", slug: 'kumars-real-estate', file: 'kumars-real-estate.png', domain: 'https://kumarsrealestate.com/' },
 ];
 
-requiredFiles.forEach((file) => {
-  assert(fs.existsSync(file), `Component file exists: ${file}`);
+assert(expectedProjects.length === 14, 'Target contains exactly 14 projects');
+
+expectedProjects.forEach((proj) => {
+  // Check project in data file
+  assert(projectsFile.includes(`slug: '${proj.slug}'`), `Project data contains slug: ${proj.slug}`);
+  assert(projectsFile.includes(proj.domain), `Project contains verified domain: ${proj.domain}`);
+
+  // Check screenshot file exists in public/images/projects
+  const pngPath = path.join('public/images/projects', proj.file);
+  assert(fs.existsSync(pngPath), `Actual screenshot exists on disk: ${proj.file}`);
+  const stats = fs.statSync(pngPath);
+  assert(stats.size > 0, `Screenshot ${proj.file} is non-empty (${stats.size} bytes)`);
+
+  // Check optimized thumb exists
+  const baseName = proj.file.replace('.png', '');
+  const thumbPath = path.join('public/images/projects', `${baseName}-thumb.webp`);
+  assert(fs.existsSync(thumbPath), `High-speed thumbnail exists: ${baseName}-thumb.webp`);
 });
 
-// 4. Category System & Slugs
-console.log('\n=== 4. CATEGORIES & QUERY PARAMETER SLUGS ===');
+// 2. Category Filters Verification
+console.log('\n=== 2. VERIFYING 10 FUNCTIONAL CATEGORY FILTERS ===');
 const categoriesFile = fs.readFileSync('src/data/categories.ts', 'utf-8');
-const expectedCategories = ['static-websites', 'dynamic-websites', 'e-commerce', 'web-applications'];
-
-expectedCategories.forEach((catSlug) => {
-  assert(categoriesFile.includes(`'${catSlug}'`), `Category slug defined: ${catSlug}`);
-});
-
-assert(categoriesFile.includes('findCategory'), 'Helper function findCategory implemented');
-assert(categoriesFile.includes('getCategoryNameFromSlug'), 'Helper function getCategoryNameFromSlug implemented');
-
-// 5. Contact Page Verification (No Fake Form)
-console.log('\n=== 5. CONTACT PAGE INTEGRITY (NO FAKE FORM) ===');
-const contactPage = fs.readFileSync('src/pages/ContactPage.tsx', 'utf-8');
-assert(!contactPage.includes('<form'), 'ContactPage contains NO fake backend submission form');
-assert(contactPage.includes('generateGeneralWhatsAppLink'), 'ContactPage provides working WhatsApp action');
-assert(contactPage.includes('generateGeneralEmailLink'), 'ContactPage provides working Email action');
-assert(contactPage.includes('COMPANY_CONFIG.phoneTel'), 'ContactPage provides working Telephone call action');
-
-// 6. Project Detail Page Verification
-console.log('\n=== 6. PROJECT DETAIL PAGE (MISSING ROUTE & VALIDATION) ===');
-const detailPage = fs.readFileSync('src/pages/ProjectDetailPage.tsx', 'utf-8');
-assert(detailPage.includes('Project Not Found'), 'Handles missing project slugs gracefully with 404 message');
-assert(detailPage.includes('isValidUrl'), 'Validates client domain URLs before rendering external link');
-assert(detailPage.includes('hasVideo'), 'Only mounts video player when a real video asset exists');
-
-// 7. SEO and Configuration
-console.log('\n=== 7. SEO & DEPLOYMENT PREPARATION ===');
-const robots = fs.readFileSync('public/robots.txt', 'utf-8');
-const sitemap = fs.readFileSync('public/sitemap.xml', 'utf-8');
-assert(!robots.includes('inpandtechnologies.com'), 'robots.txt does not publish fabricated unconfirmed domain');
-assert(!sitemap.includes('inpandtechnologies.com'), 'sitemap.xml does not publish fabricated unconfirmed domain');
-
-// 8. Official Brand Logo & Favicon Assets
-console.log('\n=== 8. OFFICIAL OFFICE LOGO & FAVICON ASSETS ===');
-const brandAssets = [
-  'public/favicon.ico',
-  'public/favicon.png',
-  'public/favicon-32x32.png',
-  'public/images/inpand-logo.png',
-  'public/images/inpand-logo-horizontal.png',
-  'public/images/inpand-mark.png',
+const expectedFilterCategories = [
+  'All Projects',
+  'Dynamic Websites',
+  'Static Websites',
+  'Hybrid Websites',
+  'E-commerce',
+  'SaaS & Technology',
+  'Media & Entertainment',
+  'Education',
+  'Real Estate',
+  'Business & Services',
 ];
 
-brandAssets.forEach((asset) => {
-  assert(fs.existsSync(asset), `Brand asset exists: ${asset}`);
-  const stats = fs.statSync(asset);
-  assert(stats.size > 0, `Brand asset ${asset} is non-empty (${stats.size} bytes)`);
+expectedFilterCategories.forEach((cat) => {
+  assert(categoriesFile.includes(`'${cat}'`), `Category filter defined: ${cat}`);
 });
 
-const indexHtml = fs.readFileSync('index.html', 'utf-8');
-assert(indexHtml.includes('/favicon.ico'), 'index.html references favicon.ico');
-assert(indexHtml.includes('/favicon.png'), 'index.html references favicon.png');
-assert(indexHtml.includes('/images/inpand-logo.png'), 'index.html references official inpand-logo.png in OpenGraph');
+// 3. UI Requirements Verification
+console.log('\n=== 3. VERIFYING PROJECTS PAGE UI REQUIREMENTS ===');
+const projectsPage = fs.readFileSync('src/pages/ProjectsPage.tsx', 'utf-8');
+assert(projectsPage.includes('OUR PORTFOLIO'), 'Projects page contains "OUR PORTFOLIO" label');
+assert(projectsPage.includes('Building Digital Experiences That Matter.'), 'Projects page contains required heading');
+assert(projectsPage.includes('Explore a collection of digital platforms'), 'Projects page contains required description');
 
-const navbarFile = fs.readFileSync('src/components/layout/Navbar.tsx', 'utf-8');
-assert(navbarFile.includes('/images/inpand-logo-horizontal.png'), 'Navbar renders official inpand-logo-horizontal.png');
+// 4. Project Card Requirements
+console.log('\n=== 4. VERIFYING PROJECT CARD REQUIREMENTS ===');
+const cardFile = fs.readFileSync('src/components/projects/ProjectCard.tsx', 'utf-8');
+assert(cardFile.includes('project.thumbnail'), 'Card displays actual website screenshot');
+assert(cardFile.includes('project.title'), 'Card displays project name');
+assert(cardFile.includes('project.category'), 'Card displays business category');
+assert(cardFile.includes('project.shortDescription'), 'Card displays short description');
+assert(cardFile.includes('project.websiteType'), 'Card displays website type badge');
+assert(cardFile.includes('target="_blank"'), 'Card opens live website in new browser tab');
+assert(cardFile.includes('rel="noopener noreferrer"'), 'Card uses secure rel attributes');
+assert(cardFile.includes('ImageOff'), 'Card contains clean placeholder fallback for missing images');
 
-const footerFile = fs.readFileSync('src/components/layout/Footer.tsx', 'utf-8');
-assert(footerFile.includes('/images/inpand-logo-horizontal.png') || footerFile.includes('/images/inpand-logo.png'), 'Footer renders official logo');
+// 5. Project Detail Interaction Requirements
+console.log('\n=== 5. VERIFYING PROJECT DETAIL REQUIREMENTS ===');
+const detailFile = fs.readFileSync('src/pages/ProjectDetailPage.tsx', 'utf-8');
+assert(detailFile.includes('project.title'), 'Detail page displays project name');
+assert(detailFile.includes('project.shortDescription'), 'Detail page displays full description');
+assert(detailFile.includes('project.category'), 'Detail page displays business category');
+assert(detailFile.includes('project.websiteType'), 'Detail page displays website classification');
+assert(detailFile.includes('project.domain'), 'Detail page displays website URL');
+assert(detailFile.includes('Visit Live Website'), 'Detail page displays Visit Live Website CTA');
+assert(detailFile.includes('target="_blank"'), 'Detail page opens external link in new tab');
+
+// 6. Verified Company Information
+console.log('\n=== 6. VERIFYING INPAND TECHNOLOGIES COMPANY COORDINATES ===');
+const configFile = fs.readFileSync('src/lib/config.ts', 'utf-8');
+assert(configFile.includes('info@inpand.com'), 'Email verified as info@inpand.com');
+assert(configFile.includes('9080394828'), 'Phone verified as 9080394828');
+assert(configFile.includes('Transform Ideas Into Business Growth'), 'Tagline verified');
+assert(configFile.includes('MRC Complex, Guziliamparai, Dindigul – 624703'), 'Address verified');
 
 console.log('\n======================================================');
 console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Project } from '../../types/project';
 import { ProjectCard } from './ProjectCard';
 import { ProjectEmptyState } from './ProjectEmptyState';
-import { VideoModal } from '../common/VideoModal';
 
 interface ProjectGridProps {
   projects: Project[];
@@ -19,31 +18,6 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({
   onResetFilter,
   className,
 }) => {
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    videoUrl: string;
-    title: string;
-  }>({
-    isOpen: false,
-    videoUrl: '',
-    title: '',
-  });
-
-  const handleOpenVideo = (videoUrl: string, title: string) => {
-    setModalState({
-      isOpen: true,
-      videoUrl,
-      title,
-    });
-  };
-
-  const handleCloseModal = () => {
-    setModalState((prev) => ({
-      ...prev,
-      isOpen: false,
-    }));
-  };
-
   if (projects.length === 0) {
     return (
       <ProjectEmptyState
@@ -55,24 +29,14 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({
   }
 
   return (
-    <>
-      <div className={className || 'grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10'}>
-        {projects.map((project, idx) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            onOpenVideo={handleOpenVideo}
-            priority={idx < 2}
-          />
-        ))}
-      </div>
-
-      <VideoModal
-        isOpen={modalState.isOpen}
-        onClose={handleCloseModal}
-        videoSrc={modalState.videoUrl}
-        projectTitle={modalState.title}
-      />
-    </>
+    <div className={className || 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8'}>
+      {projects.map((project, idx) => (
+        <ProjectCard
+          key={project.id}
+          project={project}
+          priority={idx < 3}
+        />
+      ))}
+    </div>
   );
 };
