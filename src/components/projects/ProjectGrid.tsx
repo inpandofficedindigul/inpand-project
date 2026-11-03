@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { Project } from '../../types/project';
 import { ProjectCard } from './ProjectCard';
+import { ProjectEmptyState } from './ProjectEmptyState';
 import { VideoModal } from '../common/VideoModal';
 
 interface ProjectGridProps {
   projects: Project[];
-  emptyMessage?: string;
+  categoryName?: string;
+  isFiltered?: boolean;
+  onResetFilter?: () => void;
   className?: string;
 }
 
 export const ProjectGrid: React.FC<ProjectGridProps> = ({
   projects,
-  emptyMessage = 'No digital projects found in this category.',
+  categoryName,
+  isFiltered = false,
+  onResetFilter,
   className,
 }) => {
   const [modalState, setModalState] = useState<{
@@ -41,10 +46,11 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({
 
   if (projects.length === 0) {
     return (
-      <div className="py-20 text-center rounded-md border border-dashed border-border bg-white p-8">
-        <h4 className="font-heading font-semibold text-lg text-primary mb-2">Showcase Index</h4>
-        <p className="text-sm text-secondary max-w-md mx-auto">{emptyMessage}</p>
-      </div>
+      <ProjectEmptyState
+        categoryName={categoryName}
+        isFiltered={isFiltered}
+        onResetFilter={onResetFilter}
+      />
     );
   }
 

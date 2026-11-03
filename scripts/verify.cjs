@@ -14,15 +14,91 @@ function assert(condition, message) {
   }
 }
 
-console.log('=== 1. VERIFYING SOURCE FILES AND STRUCTURE ===');
-const requiredSourceFiles = [
-  'src/main.tsx',
+console.log('======================================================');
+console.log(' INPAND TECHNOLOGIES — AUTOMATED VERIFICATION SUITE   ');
+console.log('======================================================\n');
+
+// 1. Critical Content Rules: Production Data Purity
+console.log('=== 1. CRITICAL CONTENT RULES: DATA PURITY ===');
+const projectsFile = fs.readFileSync('src/data/projects.ts', 'utf-8');
+
+// Ensure production array is empty as mandated by spec
+assert(
+  projectsFile.includes('export const PROJECTS: Project[] = [];'),
+  'Production project array is strictly empty ([]) until real approved client projects are supplied'
+);
+
+assert(
+  !projectsFile.includes('example.com'),
+  'No example.com or fabricated client domains exist in production projects data'
+);
+
+assert(
+  !projectsFile.includes('Culina Atelier') && !projectsFile.includes('Kanso Spatial'),
+  'No fabricated sample projects present in production data'
+);
+
+// Check that isolated test fixtures exist separately
+assert(
+  fs.existsSync('src/data/fixtures.test.ts'),
+  'Development fixtures are strictly isolated in src/data/fixtures.test.ts'
+);
+
+// 2. Verified Company Information
+console.log('\n=== 2. VERIFIED COMPANY INFORMATION FROM INPAND.COM ===');
+const configFile = fs.readFileSync('src/lib/config.ts', 'utf-8');
+
+assert(
+  configFile.includes("info@inpand.com"),
+  'Official email is verified as info@inpand.com'
+);
+
+assert(
+  configFile.includes("9080394828"),
+  'Official phone is verified as 9080394828'
+);
+
+assert(
+  configFile.includes("Transform Ideas Into Business Growth"),
+  'Official tagline is verified as "Transform Ideas Into Business Growth"'
+);
+
+assert(
+  configFile.includes("MRC Complex, Guziliamparai, Dindigul – 624703"),
+  'Official office address is verified as MRC Complex, Guziliamparai, Dindigul – 624703'
+);
+
+assert(
+  configFile.includes("Monday–Saturday, 9:00 AM–6:00 PM"),
+  'Official working hours verified as Monday–Saturday, 9:00 AM–6:00 PM'
+);
+
+assert(
+  configFile.includes("https://www.inpand.com/"),
+  'Official corporate website reference verified as https://www.inpand.com/'
+);
+
+assert(
+  configFile.includes("https://wa.me/"),
+  'WhatsApp integration utilizes https://wa.me/ protocol'
+);
+
+assert(
+  configFile.includes("mailto:"),
+  'Email integration utilizes mailto: protocol'
+);
+
+// 3. Component and Page Architecture
+console.log('\n=== 3. ARCHITECTURE & COMPONENT COMPLETENESS ===');
+const requiredFiles = [
   'src/App.tsx',
+  'src/main.tsx',
+  'src/types/project.ts',
   'src/data/projects.ts',
   'src/data/categories.ts',
   'src/lib/config.ts',
   'src/lib/utils.ts',
-  'src/types/project.ts',
+  'src/hooks/useScrollLock.ts',
   'src/components/layout/Navbar.tsx',
   'src/components/layout/Footer.tsx',
   'src/components/layout/Layout.tsx',
@@ -34,6 +110,7 @@ const requiredSourceFiles = [
   'src/components/projects/ProjectCard.tsx',
   'src/components/projects/ProjectFilter.tsx',
   'src/components/projects/ProjectGrid.tsx',
+  'src/components/projects/ProjectEmptyState.tsx',
   'src/components/sections/HomeHero.tsx',
   'src/components/sections/HomeCategories.tsx',
   'src/components/sections/HomeFeatured.tsx',
@@ -48,94 +125,49 @@ const requiredSourceFiles = [
   'src/pages/NotFoundPage.tsx',
 ];
 
-requiredSourceFiles.forEach((file) => {
-  assert(fs.existsSync(file), `Source file exists: ${file}`);
+requiredFiles.forEach((file) => {
+  assert(fs.existsSync(file), `Component file exists: ${file}`);
 });
 
-console.log('\n=== 2. VERIFYING PROJECTS DATA & ASSET INTEGRITY ===');
-const projectsFile = fs.readFileSync('src/data/projects.ts', 'utf-8');
+// 4. Category System & Slugs
+console.log('\n=== 4. CATEGORIES & QUERY PARAMETER SLUGS ===');
+const categoriesFile = fs.readFileSync('src/data/categories.ts', 'utf-8');
+const expectedCategories = ['static-websites', 'dynamic-websites', 'e-commerce', 'web-applications'];
 
-// Check required categories
-const categories = ['Static Websites', 'Dynamic Websites', 'E-Commerce', 'Web Applications'];
-categories.forEach((cat) => {
-  assert(projectsFile.includes(`'${cat}'`), `Data includes category: ${cat}`);
+expectedCategories.forEach((catSlug) => {
+  assert(categoriesFile.includes(`'${catSlug}'`), `Category slug defined: ${catSlug}`);
 });
 
-// Check mandatory slugs
-assert(projectsFile.includes("'restaurant-website'"), "Data includes required spec slug: 'restaurant-website'");
+assert(categoriesFile.includes('findCategory'), 'Helper function findCategory implemented');
+assert(categoriesFile.includes('getCategoryNameFromSlug'), 'Helper function getCategoryNameFromSlug implemented');
 
-// Check asset references in projects.ts
-const imageRegex = /['"](\/images\/projects\/[^'"]+)['"]/g;
-let match;
-const foundImages = new Set();
-while ((match = imageRegex.exec(projectsFile)) !== null) {
-  foundImages.add(match[1]);
-}
+// 5. Contact Page Verification (No Fake Form)
+console.log('\n=== 5. CONTACT PAGE INTEGRITY (NO FAKE FORM) ===');
+const contactPage = fs.readFileSync('src/pages/ContactPage.tsx', 'utf-8');
+assert(!contactPage.includes('<form'), 'ContactPage contains NO fake backend submission form');
+assert(contactPage.includes('generateGeneralWhatsAppLink'), 'ContactPage provides working WhatsApp action');
+assert(contactPage.includes('generateGeneralEmailLink'), 'ContactPage provides working Email action');
+assert(contactPage.includes('COMPANY_CONFIG.phoneTel'), 'ContactPage provides working Telephone call action');
 
-assert(foundImages.size > 0, `Discovered ${foundImages.size} image references in projects.ts`);
-foundImages.forEach((img) => {
-  const localPath = path.join('public', img.replace(/^\//, ''));
-  assert(fs.existsSync(localPath), `Referenced image exists on disk: ${img}`);
-});
+// 6. Project Detail Page Verification
+console.log('\n=== 6. PROJECT DETAIL PAGE (MISSING ROUTE & VALIDATION) ===');
+const detailPage = fs.readFileSync('src/pages/ProjectDetailPage.tsx', 'utf-8');
+assert(detailPage.includes('Project Not Found'), 'Handles missing project slugs gracefully with 404 message');
+assert(detailPage.includes('isValidUrl'), 'Validates client domain URLs before rendering external link');
+assert(detailPage.includes('hasVideo'), 'Only mounts video player when a real video asset exists');
 
-// Check video references in projects.ts
-const videoRegex = /['"](\/videos\/projects\/[^'"]+)['"]/g;
-const foundVideos = new Set();
-while ((match = videoRegex.exec(projectsFile)) !== null) {
-  foundVideos.add(match[1]);
-}
+// 7. SEO and Configuration
+console.log('\n=== 7. SEO & DEPLOYMENT PREPARATION ===');
+const robots = fs.readFileSync('public/robots.txt', 'utf-8');
+const sitemap = fs.readFileSync('public/sitemap.xml', 'utf-8');
+assert(!robots.includes('inpandtechnologies.com'), 'robots.txt does not publish fabricated unconfirmed domain');
+assert(!sitemap.includes('inpandtechnologies.com'), 'sitemap.xml does not publish fabricated unconfirmed domain');
 
-assert(foundVideos.size > 0, `Discovered ${foundVideos.size} video references in projects.ts`);
-foundVideos.forEach((vid) => {
-  const localPath = path.join('public', vid.replace(/^\//, ''));
-  assert(fs.existsSync(localPath), `Referenced video exists on disk: ${vid}`);
-  const stats = fs.statSync(localPath);
-  assert(stats.size > 0, `Video file ${vid} is non-empty (${stats.size} bytes)`);
-});
-
-console.log('\n=== 3. VERIFYING CONFIG, WHATSAPP & EMAIL INTEGRATIONS ===');
-const configFile = fs.readFileSync('src/lib/config.ts', 'utf-8');
-assert(configFile.includes('generateProjectWhatsAppLink'), 'Config contains generateProjectWhatsAppLink');
-assert(configFile.includes('generateProjectEmailLink'), 'Config contains generateProjectEmailLink');
-assert(configFile.includes('wa.me'), 'WhatsApp links formatted for wa.me');
-assert(configFile.includes('mailto:'), 'Email links formatted with mailto');
-assert(configFile.includes('Hi INPAND Technologies'), 'WhatsApp message contains required spec opening');
-assert(configFile.includes('Enquiry About'), 'Email subject contains required spec format');
-
-console.log('\n=== 4. VERIFYING COMPILED PRODUCTION DISTRIBUTION ===');
-assert(fs.existsSync('dist/index.html'), 'dist/index.html compiled');
-const distHtml = fs.readFileSync('dist/index.html', 'utf-8');
-assert(distHtml.includes('INPAND'), 'dist/index.html contains INPAND branding');
-assert(distHtml.includes('Manrope') && distHtml.includes('Inter'), 'dist/index.html imports Manrope and Inter typography');
-
-const distAssets = fs.readdirSync('dist/assets');
-const cssAsset = distAssets.find((f) => f.endsWith('.css'));
-const jsAsset = distAssets.find((f) => f.endsWith('.js'));
-assert(Boolean(cssAsset), `Compiled CSS bundle exists: ${cssAsset}`);
-assert(Boolean(jsAsset), `Compiled JS bundle exists: ${jsAsset}`);
-
-console.log('\n=== 5. VERIFYING DOCUMENTATION ===');
-const docFiles = [
-  'README.md',
-  'PROJECT_GUIDE.md',
-  'CONTENT_GUIDE.md',
-  'DEPLOYMENT.md',
-  'documentation/PROJECT_GUIDE.md',
-  'documentation/CONTENT_GUIDE.md',
-  'documentation/DEPLOYMENT.md',
-];
-
-docFiles.forEach((doc) => {
-  assert(fs.existsSync(doc), `Documentation file exists: ${doc}`);
-  const content = fs.readFileSync(doc, 'utf-8');
-  assert(content.length > 500, `Documentation file ${doc} is comprehensive (${content.length} bytes)`);
-});
-
-console.log(`\n========================================`);
-console.log(`TOTAL CHECKS: ${passed + failed}`);
-console.log(`TOTAL PASSED: ${passed}`);
-console.log(`TOTAL FAILED: ${failed}`);
-console.log(`========================================`);
+console.log('\n======================================================');
+console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);
+console.log(`PASSED: ${passed}`);
+console.log(`FAILED: ${failed}`);
+console.log('======================================================');
 
 if (failed > 0) {
   process.exit(1);

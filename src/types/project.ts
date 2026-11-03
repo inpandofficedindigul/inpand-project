@@ -6,27 +6,25 @@ export type ProjectCategory =
 
 export interface Project {
   id: string;
-  title: string;
   slug: string;
+  title: string;
   category: ProjectCategory;
-  description: string;
+  shortDescription: string;
   thumbnail: string;
+  screenshots?: string[];
   previewVideo?: string;
   domain?: string;
-  technologies: string[];
-  featured: boolean;
-  
-  // Optional detailed fields
-  clientIndustry?: string;
+  technologies?: string[];
+  featured?: boolean;
   overview?: string;
   features?: string[];
-  gallery?: string[];
   completionYear?: string;
 }
 
 export interface CategoryInfo {
-  id: ProjectCategory | 'All Projects';
-  name: string;
+  id: string;
+  slug: string;
+  name: ProjectCategory;
   description: string;
   accentLabel: string;
 }

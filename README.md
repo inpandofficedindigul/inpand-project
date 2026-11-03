@@ -1,16 +1,31 @@
 # INPAND Technologies — Digital Project Showcase
 
-A premium, production-ready frontend showcase platform engineered for **INPAND Technologies** to present client websites, e-commerce stores, and enterprise web applications to prospective clients.
+A professional, production-ready frontend showcase platform engineered for **INPAND Technologies** to present client websites, e-commerce storefronts, and custom web applications to prospective clients.
 
-## Core Purpose
+Reference website: [https://www.inpand.com/](https://www.inpand.com/)  
+Tagline: *"Transform Ideas Into Business Growth"*
 
-- Let prospective clients explore live digital solutions and completed works.
-- Stream high-definition preview videos through a custom modal player.
-- Link directly to verified, live client domains.
-- Initiate project-specific enquiries through official WhatsApp Business and email channels.
-- Demonstrate technical excellence, editorial typography, and high performance.
+---
 
-> **Design Philosophy**: Minimal, architectural, editorial, and professional. Engineered without bloated UI libraries, generic gradients, or AI-template clutter.
+## Primary Objectives
+
+- **Client Discovery**: Prospective clients can explore real websites and digital solutions built by INPAND Technologies across key categories (*Static Websites*, *Dynamic Websites*, *E-Commerce*, *Web Applications*).
+- **Direct Communication**: Prospective clients can directly reach out via official WhatsApp (`9080394828`), email (`info@inpand.com`), or telephone.
+- **Client Domain Linking**: Secure external links directly to live client domains (`target="_blank" rel="noopener noreferrer"`).
+- **Media Previews**: HTML5 video preview modal with custom scrubber, volume, keyboard controls, and background scroll locking.
+- **Content Purity & Production Readiness**: Zero fabricated client names, zero fake testimonials, zero fake statistics, and zero dummy placeholder projects. Ready to dynamically display real client projects the moment approved data is added to `src/data/projects.ts`.
+
+---
+
+## Verified Company Information
+
+- **Company**: INPAND Technologies
+- **Tagline**: "Transform Ideas Into Business Growth"
+- **Email**: `info@inpand.com`
+- **Phone**: `9080394828` (`+91 90803 94828`)
+- **Office**: MRC Complex, Guziliamparai, Dindigul – 624703
+- **Working Hours**: Monday–Saturday, 9:00 AM–6:00 PM
+- **Corporate Website**: [https://www.inpand.com/](https://www.inpand.com/)
 
 ---
 
@@ -18,95 +33,107 @@ A premium, production-ready frontend showcase platform engineered for **INPAND T
 
 - **React 19**
 - **TypeScript 5.7+** (Strict mode)
-- **Vite 6** (Blazing fast HMR and bundling)
-- **Tailwind CSS 3.4** (Custom design system palette & typography)
-- **React Router 7** (SPA client-side routing & deep linking)
-- **Lucide React** (Crisp, modern iconography)
+- **Vite 6** (Blazing fast bundling & HMR)
+- **Tailwind CSS 3.4** (Custom design tokens: `#F7F7F5` bg, `#171717` text, `#315EFB` accent, `#E5E5E5` borders)
+- **React Router 7** (SPA client-side routing & URL query parameter synchronization)
+- **Lucide React** (Clean, modern iconography)
 
 ---
 
-## Getting Started
+## Local Setup & Running (Windows PowerShell)
 
 ### Prerequisites
 
-- Node.js (v18 or higher recommended, tested on Node.js v24)
-- npm or pnpm
+- Node.js (v18 or higher recommended, tested on Node.js v24.22)
+- npm
 
-### Installation
+### 1. Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/inpand-technologies/officewebsite.git
-cd officewebsite
-
-# Install dependencies
+```powershell
 npm install
 ```
 
-### Development Server
+### 2. Development Server
 
-```bash
+```powershell
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser.
+Open `http://localhost:5173` in your browser.
 
-### Production Build & Preview
+### 3. Production Build & Type Checking
 
-```bash
-# Type check and build optimized static bundle
+```powershell
 npm run build
+```
 
-# Preview production build locally
+This compiles TypeScript (`tsc -b`) and bundles static production assets into `dist/`.
+
+### 4. Production Preview
+
+```powershell
 npm run preview
+```
+
+### 5. Automated Verification Suite
+
+```powershell
+node scripts/verify.cjs
 ```
 
 ---
 
-## Directory Architecture
+## Project Structure
 
 ```
 officewebsite/
 ├── public/
 │   ├── images/
-│   │   ├── inpand-logo.svg       # Official studio mark
-│   │   └── projects/             # High-res thumbnails and gallery assets
+│   │   ├── inpand-logo.svg              # INPAND Technologies official studio mark
+│   │   └── projects/                    # Directory for approved client screenshots
 │   ├── videos/
-│   │   └── projects/             # Preview video assets (MP4 / WebM)
-│   ├── robots.txt                # Search engine crawler policies
-│   └── sitemap.xml               # Indexed routes and project URLs
+│   │   └── projects/                    # Directory for approved preview videos
+│   ├── _redirects                       # SPA fallback rewrite rule for Cloudflare
+│   ├── robots.txt                       # Search engine crawler policies
+│   └── sitemap.xml                      # XML sitemap configuration
 ├── src/
 │   ├── components/
-│   │   ├── common/               # Reusable primitives (Button, Badge, VideoModal, SEOHead)
-│   │   ├── layout/               # Navbar, Footer, and Page Layout shell
-│   │   ├── projects/             # ProjectCard, ProjectGrid, ProjectFilter
-│   │   └── sections/             # Homepage narrative sections (Hero, Categories, Process, etc.)
+│   │   ├── common/                      # Reusable primitives (Button, Badge, VideoModal, SEOHead)
+│   │   ├── layout/                      # Navbar, Footer, Page Layout shell
+│   │   ├── projects/                    # ProjectCard, ProjectGrid, ProjectFilter, ProjectEmptyState
+│   │   └── sections/                    # Homepage narrative sections (Hero, Categories, Process, etc.)
 │   ├── data/
-│   │   ├── projects.ts           # Centralized single source of truth for projects
-│   │   └── categories.ts         # Category descriptors and metadata
+│   │   ├── projects.ts                  # Centralized single source of truth for projects
+│   │   ├── categories.ts                # Category descriptors and URL slug mappers
+│   │   └── fixtures.test.ts             # Quarantined test fixtures for verification
 │   ├── hooks/
-│   │   └── useScrollLock.ts      # Scroll lock for modals and mobile navigation
+│   │   └── useScrollLock.ts             # Background scroll lock for modals & mobile navigation
 │   ├── lib/
-│   │   ├── config.ts             # Company configuration, WhatsApp & mailto generators
-│   │   └── utils.ts              # Class merging utilities
+│   │   ├── config.ts                    # Verified company details, WhatsApp & mailto generators
+│   │   └── utils.ts                     # Classname merging utility
 │   ├── pages/
-│   │   ├── HomePage.tsx          # Homepage with Hero, Categories, Featured, Process, CTA
-│   │   ├── ProjectsPage.tsx      # All projects catalog with dynamic category filtering
-│   │   ├── ProjectDetailPage.tsx # Deep-dive view for individual client case studies
-│   │   ├── AboutPage.tsx         # Studio profile, ethos, and engineering principles
-│   │   ├── ContactPage.tsx       # Direct client communication via WhatsApp & email
-│   │   └── NotFoundPage.tsx      # Editorial 404 handler
+│   │   ├── HomePage.tsx                 # Showcase homepage
+│   │   ├── ProjectsPage.tsx             # Project discovery page with query-parameter filters
+│   │   ├── ProjectDetailPage.tsx        # Project case study template with video & live domain link
+│   │   ├── AboutPage.tsx                # Verified company introduction & services
+│   │   ├── ContactPage.tsx              # Direct WhatsApp, email, and phone contact channels
+│   │   └── NotFoundPage.tsx             # Editorial 404 page
 │   ├── styles/
-│   │   └── index.css             # Tailwind layers, scrollbar, and base styles
+│   │   └── index.css                    # Tailwind layers, custom scrollbar, base typography
 │   ├── types/
-│   │   └── project.ts            # Strongly typed TypeScript interfaces
-│   ├── App.tsx                   # Route definitions
-│   └── main.tsx                  # Application entry point
+│   │   └── project.ts                   # Strongly typed Project and Category interfaces
+│   ├── App.tsx                          # Route declarations
+│   └── main.tsx                         # Application entry point
 ├── documentation/
-│   ├── PROJECT_GUIDE.md          # Technical guide to adding and managing projects
-│   ├── CONTENT_GUIDE.md          # Editorial & asset guidelines for managers
-│   └── DEPLOYMENT.md             # Production hosting and SPA rewrite configs
+│   ├── PROJECT_GUIDE.md                 # Technical guide to adding and managing projects
+│   ├── CONTENT_GUIDE.md                 # Media specs, video encoding, copywriting
+│   └── DEPLOYMENT.md                    # Hosting instructions on Cloudflare, Vercel, Netlify, Nginx
+├── scripts/
+│   └── verify.cjs                       # 59-point automated verification suite
 ├── README.md
+├── PROJECT_GUIDE.md
+├── CONTENT_GUIDE.md
+├── DEPLOYMENT.md
 ├── package.json
 ├── tailwind.config.js
 └── vite.config.ts
@@ -114,19 +141,6 @@ officewebsite/
 
 ---
 
-## Key Features
+## Adding Approved Client Projects
 
-1. **Client-Side Category Filtering**: Instant categorization across *Static Websites*, *Dynamic Websites*, *E-Commerce*, and *Web Applications* with live count calculations.
-2. **Accessible Video Preview Modal**: Keyboard accessible (Esc, Space, Mute, Fullscreen), background scroll lock, custom timeline scrubbing, and automatic playback termination on close.
-3. **Project-Specific Enquiries**: Generates tailored pre-filled WhatsApp and email messages referencing the exact project title and category.
-4. **Editorial Visual Design**: Large screenshots, strict typographic hierarchy (`Manrope` headings + `Inter` body), restrained borders (`#E5E5E5`), and subtle shadows.
-5. **SEO & OpenGraph Ready**: Dynamic page titles, meta descriptions, canonical URLs, sitemap, and robots.txt.
-
----
-
-## Documentation
-
-For detailed instructions, refer to:
-- [`PROJECT_GUIDE.md`](./PROJECT_GUIDE.md) — How to add, update, and manage project records.
-- [`CONTENT_GUIDE.md`](./CONTENT_GUIDE.md) — Asset dimensions, video compression, and copywriting standards.
-- [`DEPLOYMENT.md`](./DEPLOYMENT.md) — Hosting instructions on Cloudflare Pages, Vercel, Netlify, or custom VPS.
+When approved project assets arrive from the office, follow [`PROJECT_GUIDE.md`](./PROJECT_GUIDE.md) to add records to `src/data/projects.ts`. The showcase will automatically transition from the curated empty state to displaying project cards, category counts, and detail pages.

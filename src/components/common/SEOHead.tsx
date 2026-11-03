@@ -1,23 +1,23 @@
 import { useEffect } from 'react';
+import { COMPANY_CONFIG } from '../../lib/config';
 
 interface SEOHeadProps {
   title: string;
   description?: string;
   image?: string;
-  url?: string;
+  path?: string;
 }
 
 export function SEOHead({
   title,
-  description = 'Explore websites and digital solutions crafted by INPAND Technologies. From business websites to advanced platforms.',
+  description = 'Explore websites and digital solutions developed by INPAND Technologies. Transform Ideas Into Business Growth.',
   image = '/images/inpand-logo.svg',
-  url,
+  path = '',
 }: SEOHeadProps) {
   useEffect(() => {
     const fullTitle = `${title} | INPAND Technologies`;
     document.title = fullTitle;
 
-    // Helper to update meta tag content
     const setMeta = (name: string, content: string, isProperty = false) => {
       const attr = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
       let element = document.querySelector(attr);
@@ -37,13 +37,24 @@ export function SEOHead({
     setMeta('og:title', fullTitle, true);
     setMeta('og:description', description, true);
     setMeta('og:image', image, true);
-    if (url) {
-      setMeta('og:url', url, true);
-    }
     setMeta('twitter:title', fullTitle);
     setMeta('twitter:description', description);
     setMeta('twitter:image', image);
-  }, [title, description, image, url]);
+
+    // Only set canonical URL if an approved deployment domain is configured
+    if (COMPANY_CONFIG.showcaseDomain) {
+      const canonicalUrl = `${COMPANY_CONFIG.showcaseDomain.replace(/\/$/, '')}${path}`;
+      setMeta('og:url', canonicalUrl, true);
+      
+      let linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!linkCanonical) {
+        linkCanonical = document.createElement('link');
+        linkCanonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(linkCanonical);
+      }
+      linkCanonical.setAttribute('href', canonicalUrl);
+    }
+  }, [title, description, image, path]);
 
   return null;
 }

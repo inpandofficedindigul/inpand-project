@@ -1,24 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Mail, Phone, MapPin } from 'lucide-react';
-import { COMPANY_CONFIG, generateGeneralWhatsAppLink, generateGeneralEmailLink } from '../../lib/config';
+import { Mail, Phone, MapPin, Clock, ArrowUpRight } from 'lucide-react';
+import { COMPANY_CONFIG } from '../../lib/config';
 import { PROJECT_CATEGORIES } from '../../data/categories';
 
 export const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-white border-t border-border pt-16 pb-12 mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-14 border-b border-border">
           
           {/* Col 1 & 2: Brand & Positioning */}
-          <div className="lg:col-span-2 flex flex-col gap-5">
+          <div className="lg:col-span-2 flex flex-col gap-4">
             <Link to="/" className="flex items-center gap-3 inline-block" aria-label="INPAND Technologies">
-              <div className="w-9 h-9 rounded-sm bg-primary flex items-center justify-center text-white font-heading font-extrabold text-lg">
+              <div className="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-white font-heading font-extrabold text-base">
                 <span>I</span>
-                <span className="text-accent font-black text-xl leading-none">N</span>
+                <span className="text-accent font-black text-lg leading-none">N</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-lg text-primary tracking-tight leading-none">
+                <span className="font-heading font-extrabold text-base sm:text-lg text-primary tracking-tight leading-none">
                   INPAND
                 </span>
                 <span className="text-[9px] font-semibold text-secondary tracking-[0.2em] uppercase mt-0.5">
@@ -27,15 +29,24 @@ export const Footer: React.FC = () => {
               </div>
             </Link>
 
-            <p className="text-sm text-secondary leading-relaxed max-w-sm">
-              Engineering high-impact digital experiences, bespoke web applications, and custom e-commerce flagships for forward-looking brands and enterprises.
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+              &ldquo;{COMPANY_CONFIG.tagline}&rdquo;
             </p>
 
-            <div className="flex items-center gap-4 text-xs text-secondary pt-2">
-              <span className="inline-flex items-center gap-1.5 text-emerald-600 font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Available for New Digital Projects
-              </span>
+            <p className="text-sm text-secondary leading-relaxed max-w-sm">
+              Showcasing websites, e-commerce storefronts, and tailored web applications built by INPAND Technologies for businesses across industries.
+            </p>
+
+            <div className="pt-2 text-xs text-secondary">
+              <a
+                href={COMPANY_CONFIG.officialWebsite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 hover:text-primary transition-colors font-medium text-accent"
+              >
+                <span>Visit Main Corporate Website (inpand.com)</span>
+                <ArrowUpRight size={13} />
+              </a>
             </div>
           </div>
 
@@ -52,17 +63,17 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/projects" className="hover:text-primary transition-colors">
-                  All Projects
+                  Project Collection
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-primary transition-colors">
-                  About Studio
+                  About INPAND
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="hover:text-primary transition-colors">
-                  Contact & Enquiries
+                  Contact Information
                 </Link>
               </li>
             </ul>
@@ -74,10 +85,10 @@ export const Footer: React.FC = () => {
               Categories
             </h4>
             <ul className="flex flex-col gap-2.5 text-sm text-secondary">
-              {PROJECT_CATEGORIES.filter((c) => c.id !== 'All Projects').map((cat) => (
-                <li key={cat.id}>
+              {PROJECT_CATEGORIES.map((cat) => (
+                <li key={cat.slug}>
                   <Link
-                    to={`/projects?category=${encodeURIComponent(cat.id)}`}
+                    to={`/projects?category=${cat.slug}`}
                     className="hover:text-primary transition-colors"
                   >
                     {cat.name}
@@ -87,67 +98,51 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Col 5: Official Contact & Verification */}
+          {/* Col 5: Official Contact Info */}
           <div className="flex flex-col gap-3.5">
             <h4 className="font-heading font-bold text-xs uppercase tracking-wider text-primary">
-              Direct Contact
+              Official Contact
             </h4>
             <div className="flex flex-col gap-3 text-sm text-secondary">
               <a
-                href={generateGeneralWhatsAppLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 hover:text-accent transition-colors"
-              >
-                <Phone size={15} className="shrink-0 text-accent" />
-                <span>{COMPANY_CONFIG.whatsappDisplay}</span>
-              </a>
-
-              <a
-                href={generateGeneralEmailLink()}
+                href={`mailto:${COMPANY_CONFIG.email}`}
                 className="inline-flex items-center gap-2 hover:text-accent transition-colors truncate"
               >
                 <Mail size={15} className="shrink-0 text-accent" />
                 <span className="truncate">{COMPANY_CONFIG.email}</span>
               </a>
 
+              <a
+                href={COMPANY_CONFIG.phoneTel}
+                className="inline-flex items-center gap-2 hover:text-accent transition-colors"
+              >
+                <Phone size={15} className="shrink-0 text-accent" />
+                <span>{COMPANY_CONFIG.phoneDisplay}</span>
+              </a>
+
               <div className="inline-flex items-start gap-2 pt-1 text-xs">
                 <MapPin size={15} className="shrink-0 text-secondary mt-0.5" />
                 <span>{COMPANY_CONFIG.address}</span>
               </div>
-            </div>
 
-            {/* Verified Social Channels */}
-            <div className="pt-2 flex items-center gap-3 text-xs text-secondary">
-              <a
-                href={COMPANY_CONFIG.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary inline-flex items-center gap-1"
-              >
-                LinkedIn <ArrowUpRight size={12} />
-              </a>
-              <span className="text-border">&bull;</span>
-              <a
-                href={COMPANY_CONFIG.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary inline-flex items-center gap-1"
-              >
-                GitHub <ArrowUpRight size={12} />
-              </a>
+              <div className="inline-flex items-center gap-2 text-xs">
+                <Clock size={15} className="shrink-0 text-secondary" />
+                <span>{COMPANY_CONFIG.workingHours}</span>
+              </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar: Copyright & Attribution */}
+        {/* Bottom Bar: Dynamic Year & Attribution */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-secondary">
-          <p>{COMPANY_CONFIG.copyrightText}</p>
-          <div className="flex items-center gap-6">
-            <span>Premium Digital Showcase</span>
-            <span className="hidden sm:inline text-border">&bull;</span>
-            <span>Production Grade Frontend Architecture</span>
+          <p>&copy; {currentYear} INPAND Technologies. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <span>Digital Project Showcase</span>
+            <span className="text-border">&bull;</span>
+            <Link to="/contact" className="hover:text-primary transition-colors">
+              Discuss Requirements
+            </Link>
           </div>
         </div>
       </div>

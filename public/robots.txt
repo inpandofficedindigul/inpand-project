@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://inpandtechnologies.com/sitemap.xml
+# Canonical sitemap will be declared upon domain finalization by INPAND Technologies management
+Sitemap: /sitemap.xml

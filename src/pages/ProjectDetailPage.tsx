@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, Play, MessageCircle, Mail, Check, Globe } from 'lucide-react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, ArrowUpRight, Play, MessageCircle, Mail, Check, Globe, HelpCircle } from 'lucide-react';
 import { getProjectBySlug, getRelatedProjects } from '../data/projects';
-import { generateProjectWhatsAppLink, generateProjectEmailLink } from '../../src/lib/config';
+import { generateProjectWhatsAppLink, generateProjectEmailLink, isValidUrl } from '../lib/config';
 import { Badge } from '../components/common/Badge';
 import { Button } from '../components/common/Button';
 import { VideoModal } from '../components/common/VideoModal';
@@ -16,27 +16,62 @@ export const ProjectDetailPage: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [selectedGalleryImg, setSelectedGalleryImg] = useState<string | null>(null);
 
+  // Missing Project Route Handling (Section 8)
   if (!project) {
-    return <Navigate to="/404" replace />;
+    return (
+      <div className="py-20 md:py-28">
+        <SEOHead title="Project Not Found — Digital Showcase" />
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-6 shadow-subtle text-accent">
+            <HelpCircle size={26} />
+          </div>
+
+          <span className="text-xs font-bold uppercase tracking-widest text-accent mb-2 block">
+            Project Index Notice
+          </span>
+
+          <h1 className="font-heading font-extrabold text-3xl sm:text-5xl text-primary tracking-tight mb-4">
+            Project Not Found
+          </h1>
+
+          <p className="text-secondary text-sm sm:text-base leading-relaxed mb-8">
+            The requested project ({slug ? `"${slug}"` : 'record'}) is not currently published in the INPAND Technologies digital showcase, or may be undergoing asset review and verification.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Button to="/projects" variant="primary" size="md" icon={<ArrowLeft size={16} />} iconPosition="left">
+              View Published Projects
+            </Button>
+            <Button to="/contact" variant="secondary" size="md">
+              Discuss Custom Requirement
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const relatedProjects = getRelatedProjects(project.slug, project.category, 2);
   const hasVideo = Boolean(project.previewVideo && project.previewVideo.trim().length > 0);
-  const hasDomain = Boolean(project.domain && project.domain.trim().length > 0);
-  const whatsappUrl = generateProjectWhatsAppLink(project.title, project.category);
-  const emailUrl = generateProjectEmailLink(project.title);
+  const hasValidDomain = isValidUrl(project.domain);
+  const whatsappUrl = generateProjectWhatsAppLink(project.title);
+  const emailUrl = generateProjectEmailLink(project.title, project.category);
+  const allScreenshots = [
+    project.thumbnail,
+    ...(project.screenshots || []),
+  ].filter(Boolean);
 
   return (
     <article className="py-10 md:py-16">
       <SEOHead
-        title={`${project.title}`}
-        description={project.description}
+        title={project.title}
+        description={project.shortDescription}
         image={project.thumbnail}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Breadcrumb & Back Navigation */}
+        {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-border">
           <Link
             to="/projects"
@@ -46,43 +81,37 @@ export const ProjectDetailPage: React.FC = () => {
             <span>Back to All Projects</span>
           </Link>
 
-          <div className="flex items-center gap-2">
-            <Badge variant="accent" size="sm">
-              {project.category}
-            </Badge>
-          </div>
+          <Badge variant="accent" size="sm">
+            {project.category}
+          </Badge>
         </div>
 
-        {/* Project Header Header Info */}
+        {/* Project Header Info */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 items-start">
           <div className="lg:col-span-8">
-            <div className="flex items-center gap-3 text-xs text-secondary mb-3">
-              <span>{project.clientIndustry || 'Client Digital Platform'}</span>
-              {project.completionYear && (
-                <>
-                  <span>&bull;</span>
-                  <span>Completed {project.completionYear}</span>
-                </>
-              )}
-            </div>
+            {project.completionYear && (
+              <span className="text-xs text-secondary font-mono block mb-2">
+                Delivered &bull; {project.completionYear}
+              </span>
+            )}
 
             <h1 className="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl text-primary tracking-tight leading-[1.1] mb-6">
               {project.title}
             </h1>
 
             <p className="text-base sm:text-xl text-secondary leading-relaxed">
-              {project.description}
+              {project.shortDescription}
             </p>
           </div>
 
-          {/* Quick Enquiries / Action Box */}
+          {/* Project Enquiry Box */}
           <div className="lg:col-span-4 bg-white p-6 sm:p-7 rounded-md border border-border shadow-subtle flex flex-col gap-4">
             <span className="text-xs font-bold uppercase tracking-wider text-primary pb-2 border-b border-border">
-              Discuss Similar Requirement
+              Discuss a Similar Project
             </span>
             
             <p className="text-xs text-secondary leading-relaxed">
-              Interested in developing a solution with comparable architecture and design? Contact our engineering team directly:
+              Interested in developing a solution with comparable architecture and requirements? Contact our engineering team:
             </p>
 
             <div className="flex flex-col gap-2.5 pt-1">
@@ -94,7 +123,7 @@ export const ProjectDetailPage: React.FC = () => {
                 className="w-full justify-center"
                 icon={<MessageCircle size={16} />}
               >
-                Enquire via WhatsApp
+                Discuss on WhatsApp
               </Button>
 
               <Button
@@ -104,12 +133,12 @@ export const ProjectDetailPage: React.FC = () => {
                 className="w-full justify-center"
                 icon={<Mail size={16} />}
               >
-                Enquire via Email
+                Discuss via Email
               </Button>
             </div>
 
-            {/* Visit Live Website if domain provided */}
-            {hasDomain && (
+            {/* Visit Live Website (Rendered ONLY if verified domain exists) */}
+            {hasValidDomain && (
               <div className="pt-3 border-t border-border">
                 <a
                   href={project.domain}
@@ -118,7 +147,7 @@ export const ProjectDetailPage: React.FC = () => {
                   className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-primary hover:text-accent bg-[#F7F7F5] hover:bg-[#EFEFEA] rounded-sm transition-colors border border-border"
                 >
                   <Globe size={14} />
-                  <span>Visit Live Client Website</span>
+                  <span>Visit Client Website</span>
                   <ArrowUpRight size={14} />
                 </a>
               </div>
@@ -126,37 +155,37 @@ export const ProjectDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Project Screenshot Showcase */}
+        {/* Main Screenshot Showcase */}
         <div className="mb-14 rounded-lg overflow-hidden border border-border bg-white shadow-card relative group">
           <div className="relative aspect-[16/9] w-full bg-[#18181A] overflow-hidden">
             <img
               src={selectedGalleryImg || project.thumbnail}
-              alt={project.title}
+              alt={`Main screenshot of ${project.title}`}
               fetchPriority="high"
               className="w-full h-full object-cover object-top transition-all duration-300"
             />
 
-            {/* Video Preview Action overlay */}
+            {/* Video Preview Action (Shown ONLY when a real video asset exists) */}
             {hasVideo && (
               <button
                 onClick={() => setIsVideoModalOpen(true)}
                 className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex items-center gap-2 px-5 py-2.5 bg-black/85 hover:bg-black text-white text-xs sm:text-sm font-semibold rounded-sm backdrop-blur-md transition-all duration-200 border border-white/20 shadow-xl group-hover:scale-105"
               >
                 <Play size={16} className="fill-white" />
-                <span>Watch Video Preview</span>
+                <span>Watch Preview Video</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* Secondary Gallery (if available) */}
-        {project.gallery && project.gallery.length > 1 && (
+        {/* Additional Screenshots (Shown ONLY if available) */}
+        {allScreenshots.length > 1 && (
           <div className="mb-14">
             <h3 className="font-heading font-bold text-xs uppercase tracking-wider text-secondary mb-4">
               Project Screen Gallery
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-              {project.gallery.map((img, idx) => (
+              {allScreenshots.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedGalleryImg(img)}
@@ -178,15 +207,13 @@ export const ProjectDetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* Detailed Breakdown: Overview, Features & Technologies */}
+        {/* Overview & Technical Details */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20 pt-8 border-t border-border">
-          
-          {/* Left Column: Architectural Overview & Key Features */}
           <div className="lg:col-span-8 flex flex-col gap-10">
             {project.overview && (
               <div>
                 <h2 className="font-heading font-bold text-2xl text-primary mb-4">
-                  Project Architectural Overview
+                  Project Overview
                 </h2>
                 <p className="text-secondary text-base sm:text-lg leading-relaxed whitespace-pre-line">
                   {project.overview}
@@ -214,11 +241,10 @@ export const ProjectDetailPage: React.FC = () => {
             )}
           </div>
 
-          {/* Right Column: Specifications & Tech Stack */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <div className="bg-white p-6 rounded-md border border-border flex flex-col gap-5">
               <h3 className="font-heading font-bold text-base text-primary pb-3 border-b border-border">
-                Project Specifications
+                Project Details
               </h3>
 
               <div className="flex flex-col gap-4 text-xs sm:text-sm">
@@ -227,36 +253,31 @@ export const ProjectDetailPage: React.FC = () => {
                   <span className="font-semibold text-primary">{project.category}</span>
                 </div>
 
-                <div>
-                  <span className="text-secondary block text-xs mb-1">Client Sector</span>
-                  <span className="font-semibold text-primary">{project.clientIndustry || 'Enterprise'}</span>
-                </div>
-
                 {project.completionYear && (
                   <div>
-                    <span className="text-secondary block text-xs mb-1">Completion Year</span>
+                    <span className="text-secondary block text-xs mb-1">Delivery</span>
                     <span className="font-semibold text-primary">{project.completionYear}</span>
                   </div>
                 )}
 
                 <div>
-                  <span className="text-secondary block text-xs mb-1">Client Live Status</span>
-                  {hasDomain ? (
+                  <span className="text-secondary block text-xs mb-1">Deployment Status</span>
+                  {hasValidDomain ? (
                     <span className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       Live in Production
                     </span>
                   ) : (
-                    <span className="text-secondary font-medium">Bespoke Client Environment</span>
+                    <span className="text-secondary font-medium">Delivered to Client</span>
                   )}
                 </div>
               </div>
 
-              {/* Technologies Used */}
+              {/* Technologies Used if verified */}
               {project.technologies && project.technologies.length > 0 && (
                 <div className="pt-4 border-t border-border">
                   <span className="text-secondary block text-xs mb-2.5 font-medium">
-                    Technology Stack
+                    Technologies
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {project.technologies.map((tech) => (
@@ -272,19 +293,18 @@ export const ProjectDetailPage: React.FC = () => {
               )}
             </div>
           </div>
-
         </div>
 
-        {/* Related Projects Section */}
+        {/* Related Projects */}
         {relatedProjects.length > 0 && (
           <div className="pt-16 border-t border-border">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-accent mb-1 block">
-                  Next in Portfolio
+                  More in Category
                 </span>
                 <h3 className="font-heading font-bold text-2xl text-primary">
-                  Explore Related Projects
+                  Related Projects
                 </h3>
               </div>
 
@@ -306,7 +326,7 @@ export const ProjectDetailPage: React.FC = () => {
 
       </div>
 
-      {/* Video Modal */}
+      {/* Video Modal (Rendered ONLY if preview video exists) */}
       {hasVideo && (
         <VideoModal
           isOpen={isVideoModalOpen}

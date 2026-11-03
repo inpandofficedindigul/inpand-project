@@ -1,62 +1,42 @@
 # INPAND Technologies — Production Deployment Guide
 
-This guide details how to build and deploy the **INPAND Digital Project Showcase** to modern cloud hosting platforms.
+This guide details how to build and deploy the **INPAND Digital Project Showcase** to production hosting platforms.
 
 ---
 
-## 1. Production Build
+## 1. Production Build & Verification
 
-To generate the optimized static distribution bundle:
+In Windows PowerShell:
 
-```bash
+```powershell
+# Run 59-point verification audit
+node scripts/verify.cjs
+
+# Compile TypeScript and build static bundle
 npm run build
-```
 
-This executes:
-1. `tsc -b` (TypeScript strict type verification)
-2. `vite build` (Minification, CSS bundling, asset hashing, and tree-shaking)
-
-The compiled static files are output to:
-```
-dist/
-├── assets/             # Bundled, fingerprinted JS and CSS
-├── images/             # Optimized project mockups & SVGs
-├── videos/             # Project preview MP4 video assets
-├── index.html          # HTML shell
-├── robots.txt          # Crawler instructions
-└── sitemap.xml         # XML sitemap
-```
-
-To test the build locally before deploying:
-```bash
+# Preview compiled build locally
 npm run preview
 ```
 
----
-
-## 2. Platform Deployment Instructions
-
-Because this is a Single Page Application (SPA) with client-side routing, all incoming route requests (such as `/projects/restaurant-website` or `/about`) must be rewritten to `/index.html`.
-
-### Option A: Cloudflare Pages (Recommended)
-
-1. Connect your GitHub repository to Cloudflare Pages.
-2. Configure build settings:
-   - **Framework preset**: `Vite`
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-3. SPA Redirect:
-   Cloudflare Pages handles SPA routing automatically when `dist/_redirects` or single-page setting is enabled. Create a `public/_redirects` file with:
-   ```
-   /*    /index.html   200
-   ```
+The compiled static assets are generated in `dist/`.
 
 ---
 
-### Option B: Vercel
+## 2. SPA Rewrite Configuration
 
-Create a `vercel.json` file in the root directory:
+Because this is a React Single Page Application (SPA), all routing requests (e.g. `/projects`, `/about`, `/contact`, `/projects/:slug`) must be served with `index.html`.
 
+### Cloudflare Pages (Recommended)
+Cloudflare automatically respects the `public/_redirects` file included in this repository:
+```
+/*    /index.html   200
+```
+- Build command: `npm run build`
+- Build output directory: `dist`
+
+### Vercel
+Create or verify `vercel.json` in the root:
 ```json
 {
   "rewrites": [
@@ -64,41 +44,12 @@ Create a `vercel.json` file in the root directory:
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/videos/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/images/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
   ]
 }
 ```
 
-Deploy via Vercel CLI:
-```bash
-vercel --prod
-```
-
----
-
-### Option C: Netlify
-
-Create a `netlify.toml` file in the root directory:
-
+### Netlify
+Add `netlify.toml` in the root:
 ```toml
 [build]
   command = "npm run build"
@@ -108,66 +59,15 @@ Create a `netlify.toml` file in the root directory:
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[headers]]
-  for = "/videos/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/images/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
 ```
 
 ---
 
-### Option D: Custom Linux Server (Nginx)
+## 3. Post-Deployment Verification
 
-If hosting on an Ubuntu/Debian server with Nginx:
-
-```nginx
-server {
-    listen 80;
-    server_name showcase.inpandtechnologies.com;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name showcase.inpandtechnologies.com;
-
-    ssl_certificate /etc/letsencrypt/live/showcase.inpandtechnologies.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/showcase.inpandtechnologies.com/privkey.pem;
-
-    root /var/www/officewebsite/dist;
-    index index.html;
-
-    # Gzip & Brotli compression
-    gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
-
-    # Cache static assets
-    location ~* \.(js|css|webp|svg|png|jpg|mp4|webm|woff2)$ {
-        expires 1y;
-        add_header Cache-Control "public, no-transform";
-    }
-
-    # SPA routing fallback
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
----
-
-## 3. Post-Deployment Verification Checklist
-
-- [ ] Verify root route `/` loads instantly.
-- [ ] Direct visit to deep link: `https://your-domain.com/projects/restaurant-website` loads without 404.
-- [ ] Category filtering on `/projects` updates without full page reload.
-- [ ] Video preview modal opens and plays video smoothly.
-- [ ] WhatsApp button initiates conversation with verified business number and pre-filled project message.
-- [ ] Email button opens user's email client with pre-filled subject and body.
-- [ ] Lighthouse audit achieves 95+ score on Performance, Accessibility, and Best Practices.
+1. Verify root `/` loads immediately with correct styling and verified company info.
+2. Verify deep linking: refresh `/projects` or `/about` directly in browser.
+3. Verify WhatsApp CTA initiates chat with `9080394828`.
+4. Verify Email CTA opens `mailto:info@inpand.com`.
+5. Verify Phone CTA opens `tel:9080394828`.
+6. Verify 404 page displays cleanly for non-existent paths (e.g. `/unknown-path`).

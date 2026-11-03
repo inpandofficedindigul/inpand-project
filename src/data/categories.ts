@@ -1,34 +1,51 @@
-import { CategoryInfo } from '../types/project';
+import { CategoryInfo, ProjectCategory } from '../types/project';
 
 export const PROJECT_CATEGORIES: CategoryInfo[] = [
   {
-    id: 'All Projects',
-    name: 'All Projects',
-    description: 'A curated index of production digital platforms, high-performance websites, and tailored web applications built for our clients.',
-    accentLabel: 'Full Portfolio',
-  },
-  {
-    id: 'Static Websites',
+    id: 'static-websites',
+    slug: 'static-websites',
     name: 'Static Websites',
-    description: 'Ultra-fast, meticulously designed digital experiences with lightning-fast load times, flawless typography, and robust security.',
+    description: 'High-speed, meticulously designed websites engineered for lightning-fast delivery, optimal SEO, and zero server overhead.',
     accentLabel: 'Speed & Architecture',
   },
   {
-    id: 'Dynamic Websites',
+    id: 'dynamic-websites',
+    slug: 'dynamic-websites',
     name: 'Dynamic Websites',
-    description: 'Content-rich, headless CMS-driven business platforms engineered for seamless content publishing and interactive user engagement.',
+    description: 'Content-driven corporate platforms with integrated content workflows, custom interactive modules, and business logic.',
     accentLabel: 'Content & Interaction',
   },
   {
-    id: 'E-Commerce',
+    id: 'e-commerce',
+    slug: 'e-commerce',
     name: 'E-Commerce',
-    description: 'High-converting online flagship stores, custom checkout flows, and catalog architectures optimized for conversion and revenue.',
+    description: 'Custom digital storefronts, high-converting product showcases, and streamlined checkout funnels tailored to sales growth.',
     accentLabel: 'Commerce & Scale',
   },
   {
-    id: 'Web Applications',
+    id: 'web-applications',
+    slug: 'web-applications',
     name: 'Web Applications',
-    description: 'Complex browser-based software, interactive dashboards, client portals, and bespoke workflow automation systems.',
-    accentLabel: 'Systems & SaaS',
+    description: 'Interactive browser-based software, client portals, internal management tools, and tailored enterprise web solutions.',
+    accentLabel: 'Systems & Tools',
   },
 ];
+
+/**
+ * Find category by slug (e.g. 'static-websites') or name ('Static Websites')
+ */
+export function findCategory(identifier?: string | null): CategoryInfo | undefined {
+  if (!identifier) return undefined;
+  const normalized = identifier.toLowerCase().trim();
+  return PROJECT_CATEGORIES.find(
+    (c) => c.slug === normalized || c.name.toLowerCase() === normalized
+  );
+}
+
+/**
+ * Get category name from slug safely
+ */
+export function getCategoryNameFromSlug(slug?: string | null): ProjectCategory | null {
+  const cat = findCategory(slug);
+  return cat ? cat.name : null;
+}

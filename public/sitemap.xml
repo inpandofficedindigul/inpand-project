@@ -1,62 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Update domain upon official deployment approval by INPAND Technologies -->
   <url>
-    <loc>https://inpandtechnologies.com/</loc>
+    <loc>/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://inpandtechnologies.com/projects</loc>
+    <loc>/projects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://inpandtechnologies.com/projects/restaurant-website</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/kanso-architectural-studio</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/lumina-specialty-roasters</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/strata-logistics-platform</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/verve-fintech-advisory</loc>
+    <loc>/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://inpandtechnologies.com/projects/apex-performance-lab</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/nordic-furnishings-store</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/projects/monolith-concrete-works</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://inpandtechnologies.com/contact</loc>
+    <loc>/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
