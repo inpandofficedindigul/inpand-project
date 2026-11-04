@@ -34,7 +34,7 @@ export const HomeFeatured: React.FC<HomeFeaturedProps> = ({ featuredProjects }) 
             to="/projects"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors pb-1 border-b border-primary/20 hover:border-accent"
           >
-            <span>View All 14 Projects</span>
+            <span>View All 13 Projects</span>
             <ArrowUpRight size={16} />
           </Link>
         </div>

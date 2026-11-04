@@ -15,17 +15,16 @@ function assert(condition, message) {
 }
 
 console.log('======================================================');
-console.log(' INPAND TECHNOLOGIES — 14 PORTFOLIO PROJECTS AUDIT    ');
+console.log(' INPAND TECHNOLOGIES — 13 PORTFOLIO PROJECTS AUDIT    ');
 console.log('======================================================\n');
 
 // 1. Projects Data Structure & Mapping Verification
-console.log('=== 1. VERIFYING 14 PORTFOLIO PROJECTS ===');
+console.log('=== 1. VERIFYING 13 PORTFOLIO PROJECTS ===');
 const projectsFile = fs.readFileSync('src/data/projects.ts', 'utf-8');
 
 const expectedProjects = [
   { name: 'Mei Alai', slug: 'mei-alai', file: 'mei-alai.png', domain: 'https://www.meialai.com/' },
   { name: 'Namma Jilla', slug: 'namma-jilla', file: 'namma-jilla.png', domain: 'https://www.nammajilla.com/' },
-  { name: 'Innomedex Conferences', slug: 'innomedex', file: 'innomedex.png', domain: 'https://www.innomedexconferences.com/' },
   { name: 'Mei Alai Sports', slug: 'mei-alai-sports', file: 'mei-alai-sports.png', domain: 'https://meialaisports.com/' },
   { name: 'Nizhal Visuals', slug: 'nizhal-visuals', file: 'nizhal-visuals.png', domain: 'https://www.nizhalvisuals.com/' },
   { name: 'Moonlight Enterprises', slug: 'moonlight-enterprises', file: 'moonlight-enterprises.png', domain: 'https://moonlightenterprises.co.in/' },
@@ -39,7 +38,8 @@ const expectedProjects = [
   { name: "Kumar's Real Estate", slug: 'kumars-real-estate', file: 'kumars-real-estate.png', domain: 'https://kumarsrealestate.com/' },
 ];
 
-assert(expectedProjects.length === 14, 'Target contains exactly 14 projects');
+assert(expectedProjects.length === 13, 'Target contains exactly 13 projects');
+assert(!projectsFile.includes("slug: 'innomedex'"), 'Project innomedex successfully removed from project data');
 
 expectedProjects.forEach((proj) => {
   // Check project in data file
@@ -278,9 +278,9 @@ assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/software</loc>
 assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/about</loc>'), 'sitemap.xml includes /about');
 assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/contact</loc>'), 'sitemap.xml includes /contact');
 
-// Verify all 14 project detail pages exist in sitemap
+// Verify all 13 project detail pages exist in sitemap
 const projectSlugsList = [
-  'mei-alai', 'namma-jilla', 'innomedex', 'mei-alai-sports',
+  'mei-alai', 'namma-jilla', 'mei-alai-sports',
   'nizhal-visuals', 'moonlight-enterprises', 'eesan-tv', 'image-scraper',
   'focus-tourism', 'inpand-academy', 'med-jewel', 'dove-education',
   'land-plot', 'kumars-real-estate'
@@ -288,6 +288,7 @@ const projectSlugsList = [
 projectSlugsList.forEach(slug => {
   assert(sitemapContent.includes(`<loc>https://portfolio.inpand.com/projects/${slug}</loc>`), `sitemap.xml includes project /projects/${slug}`);
 });
+assert(!sitemapContent.includes('/projects/innomedex'), 'sitemap.xml does NOT include removed innomedex project');
 
 // Robots.txt verification
 assert(fs.existsSync('public/robots.txt'), 'public/robots.txt exists');

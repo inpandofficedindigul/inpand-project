@@ -323,7 +323,7 @@ export const ProjectDetailPage: React.FC = () => {
                 to="/projects"
                 className="text-xs sm:text-sm font-semibold text-primary hover:text-accent transition-colors"
               >
-                View All 14 Projects &rarr;
+                View All 13 Projects &rarr;
               </Link>
             </div>
 

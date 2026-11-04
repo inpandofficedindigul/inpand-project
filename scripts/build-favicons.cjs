@@ -126,3 +126,4 @@ const manifest = {
 };
 fs.writeFileSync(path.join(publicDir, 'site.webmanifest'), JSON.stringify(manifest, null, 2), 'utf8');
 console.log('✓ Generated site.webmanifest');
+

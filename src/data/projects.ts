@@ -4,7 +4,7 @@ import { PROJECT_CATEGORIES } from './categories';
 /**
  * INPAND TECHNOLOGIES — OFFICIAL CLIENT & COMPANY PORTFOLIO PROJECTS
  * 
- * 14 production websites delivered by INPAND Technologies.
+ * 13 production websites delivered by INPAND Technologies.
  * Each entry maps to an actual website screenshot, verified client domain,
  * official business category, website classification, and factual description.
  */
@@ -37,19 +37,6 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'proj-03',
-    slug: 'innomedex',
-    title: 'Innomedex Conferences',
-    category: 'Events & Conferences',
-    websiteType: 'Dynamic',
-    categories: ['Dynamic Websites', 'Business & Services'],
-    shortDescription: 'A professional conference platform designed to showcase events, conference information, schedules and participation opportunities.',
-    thumbnail: '/images/projects/innomedex-thumb.webp',
-    fullScreenshot: '/images/projects/innomedex.png',
-    domain: 'https://www.innomedexconferences.com/',
-    featured: true,
-  },
-  {
-    id: 'proj-04',
     slug: 'mei-alai-sports',
     title: 'Mei Alai Sports',
     category: 'Sports Platform',
@@ -62,7 +49,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-05',
+    id: 'proj-04',
     slug: 'nizhal-visuals',
     title: 'Nizhal Visuals',
     category: 'Photography & Visual Media',
@@ -75,7 +62,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    id: 'proj-06',
+    id: 'proj-05',
     slug: 'moonlight-enterprises',
     title: 'Moonlight Enterprises',
     category: 'Business / E-commerce',
@@ -88,7 +75,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-07',
+    id: 'proj-06',
     slug: 'eesan-tv',
     title: 'Eesan TV',
     category: 'Media & Entertainment',
@@ -101,7 +88,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-08',
+    id: 'proj-07',
     slug: 'image-scraper',
     title: 'Image Scraper Studio',
     category: 'SaaS / Technology',
@@ -114,7 +101,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    id: 'proj-09',
+    id: 'proj-08',
     slug: 'focus-tourism',
     title: 'Focus Tourism Eventz',
     category: 'Tourism & Travel',
@@ -127,7 +114,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-10',
+    id: 'proj-09',
     slug: 'inpand-academy',
     title: 'Inpand Academy',
     category: 'Education & Training',
@@ -140,7 +127,7 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
-    id: 'proj-11',
+    id: 'proj-10',
     slug: 'med-jewel',
     title: 'MED Jewel Manufacturing',
     category: 'Jewellery Manufacturing',
@@ -153,7 +140,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-12',
+    id: 'proj-11',
     slug: 'dove-education',
     title: 'Dove Education Consultancy',
     category: 'Education Consultancy',
@@ -166,7 +153,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-13',
+    id: 'proj-12',
     slug: 'land-plot',
     title: 'Land Plot Real Estates',
     category: 'Real Estate',
@@ -179,7 +166,7 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    id: 'proj-14',
+    id: 'proj-13',
     slug: 'kumars-real-estate',
     title: "Kumar's Real Estate",
     category: 'Real Estate',

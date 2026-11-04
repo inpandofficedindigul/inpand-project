@@ -101,7 +101,7 @@ export const Footer: React.FC = () => {
                   to="/projects"
                   className="text-xs text-accent font-semibold hover:underline"
                 >
-                  View All 14 Projects &rarr;
+                  View All 13 Projects &rarr;
                 </Link>
               </li>
             </ul>

@@ -5,7 +5,7 @@ export const PROJECT_CATEGORIES: CategoryInfo[] = [
     id: 'all',
     slug: 'all',
     name: 'All Projects',
-    description: 'Explore the complete index of 14 digital platforms, business websites, and technology solutions delivered by INPAND Technologies.',
+    description: 'Explore the complete index of 13 digital platforms, business websites, and technology solutions delivered by INPAND Technologies.',
   },
   {
     id: 'dynamic-websites',

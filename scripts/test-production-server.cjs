@@ -116,7 +116,8 @@ server.listen(port, async () => {
     assert(sitemap.body.includes('<loc>https://portfolio.inpand.com/contact</loc>'), 'sitemap includes /contact');
 
     const locCount = (sitemap.body.match(/<loc>/g) || []).length;
-    assert(locCount === 19, `sitemap contains exactly 19 verified production routes (found: ${locCount})`);
+    assert(locCount === 18, `sitemap contains exactly 18 verified production routes (found: ${locCount})`);
+    assert(!sitemap.body.includes('innomedex'), 'sitemap does not contain innomedex');
 
     // 5. Structured Data Check
     const sdMatch = home.body.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
@@ -139,3 +140,4 @@ server.listen(port, async () => {
     process.exit(1);
   }
 });
+

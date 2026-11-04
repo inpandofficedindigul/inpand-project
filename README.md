@@ -14,7 +14,7 @@ Tagline: *"Transform Ideas Into Business Growth"*
 - **Direct Communication**: Prospective clients can directly reach out via official WhatsApp (`9080394828`), email (`info@inpand.com`), or telephone.
 - **Client Domain Linking**: Secure external links directly to live client domains (`target="_blank" rel="noopener noreferrer"`).
 - **High-Performance Image & Video Optimization**: Dual WebP thumbnails + full-resolution WebP screenshots for websites; H.264 FastStart optimized delivery clips (<19 MB total) + WebP poster frames for software walkthroughs.
-- **Content Purity & Production Readiness**: 14 fully integrated client website projects and 6 software application video showcases with real assets, verified domains, and accurate business classifications. Zero fabricated client names or placeholder projects.
+- **Content Purity & Production Readiness**: 13 fully integrated client website projects and 6 software application video showcases with real assets, verified domains, and accurate business classifications. Zero fabricated client names or placeholder projects.
 
 ---
 
@@ -85,24 +85,23 @@ Runs 103 automated checks validating project domains, high-res screenshots, thum
 
 ---
 
-## Integrated Client Projects (14 Published)
+## Integrated Client Projects (13 Published)
 
 | # | Project | Domain | Business Category | Website Type |
 |---|---|---|---|---|
 | 1 | **Mei Alai** | [meialai.com](https://www.meialai.com/) | Media & Entertainment | Dynamic |
 | 2 | **Namma Jilla** | [nammajilla.com](https://www.nammajilla.com/) | E-commerce / Local Platform | E-commerce |
-| 3 | **Innomedex Conferences** | [innomedexconferences.com](https://www.innomedexconferences.com/) | Events & Conferences | Dynamic |
-| 4 | **Mei Alai Sports** | [meialaisports.com](https://meialaisports.com/) | Sports Platform | Dynamic / Hybrid |
-| 5 | **Nizhal Visuals** | [nizhalvisuals.com](https://www.nizhalvisuals.com/) | Photography & Visual Media | Static / Hybrid |
-| 6 | **Moonlight Enterprises** | [moonlightenterprises.co.in](https://moonlightenterprises.co.in/) | Business / E-commerce | E-commerce |
-| 7 | **Eesan TV** | [eesantv.com](https://www.eesantv.com/) | Media & Entertainment | Static |
-| 8 | **Image Scraper Studio** | [imagescrapper.com](https://www.imagescrapper.com/) | SaaS / Technology | Dynamic |
-| 9 | **Focus Tourism Eventz** | [focustourismeventz.com](https://www.focustourismeventz.com/) | Tourism & Travel | E-commerce |
-| 10 | **Inpand Academy** | [inpandacademy.com](https://inpandacademy.com/) | Education & Training | Static / Hybrid |
-| 11 | **MED Jewel Manufacturing** | [medjewelmanufacturing.com](https://medjewelmanufacturing.com/) | Jewellery Manufacturing | Static |
-| 12 | **Dove Education Consultancy** | [doveeducationconsultancy.com](https://doveeducationconsultancy.com/) | Education Consultancy | Static / Hybrid |
-| 13 | **Land Plot Real Estates** | [landplotrealestates.com](https://landplotrealestates.com/) | Real Estate | Static |
-| 14 | **Kumar's Real Estate** | [kumarsrealestate.com](https://kumarsrealestate.com/) | Real Estate | Dynamic / Hybrid |
+| 3 | **Mei Alai Sports** | [meialaisports.com](https://meialaisports.com/) | Sports Platform | Dynamic / Hybrid |
+| 4 | **Nizhal Visuals** | [nizhalvisuals.com](https://www.nizhalvisuals.com/) | Photography & Visual Media | Static / Hybrid |
+| 5 | **Moonlight Enterprises** | [moonlightenterprises.co.in](https://moonlightenterprises.co.in/) | Business / E-commerce | E-commerce |
+| 6 | **Eesan TV** | [eesantv.com](https://www.eesantv.com/) | Media & Entertainment | Static |
+| 7 | **Image Scraper Studio** | [imagescrapper.com](https://www.imagescrapper.com/) | SaaS / Technology | Dynamic |
+| 8 | **Focus Tourism Eventz** | [focustourismeventz.com](https://www.focustourismeventz.com/) | Tourism & Travel | E-commerce |
+| 9 | **Inpand Academy** | [inpandacademy.com](https://inpandacademy.com/) | Education & Training | Static / Hybrid |
+| 10 | **MED Jewel Manufacturing** | [medjewelmanufacturing.com](https://medjewelmanufacturing.com/) | Jewellery Manufacturing | Static |
+| 11 | **Dove Education Consultancy** | [doveeducationconsultancy.com](https://doveeducationconsultancy.com/) | Education Consultancy | Static / Hybrid |
+| 12 | **Land Plot Real Estates** | [landplotrealestates.com](https://landplotrealestates.com/) | Real Estate | Static |
+| 13 | **Kumar's Real Estate** | [kumarsrealestate.com](https://kumarsrealestate.com/) | Real Estate | Dynamic / Hybrid |
 
 ---
 
