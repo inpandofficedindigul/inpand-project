@@ -252,6 +252,8 @@ assert(indexHtml.includes('name="robots" content="index, follow, max-image-previ
 assert(indexHtml.includes('name="theme-color" content="#315EFB"'), 'index.html sets brand theme-color #315EFB');
 assert(indexHtml.includes('property="og:url" content="https://portfolio.inpand.com/"'), 'index.html sets Open Graph canonical URL');
 assert(indexHtml.includes('name="twitter:card" content="summary_large_image"'), 'index.html declares Twitter summary_large_image');
+assert(indexHtml.includes('name="google-site-verification"'), 'index.html includes Google Search Console verification meta tag');
+assert(fs.existsSync('public/googleb136c2358023a065.html'), 'public/googleb136c2358023a065.html verification file exists');
 
 // Favicons verification
 assert(fs.existsSync('public/favicon.ico'), 'Favicon public/favicon.ico exists');

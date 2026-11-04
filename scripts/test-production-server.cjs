@@ -81,6 +81,12 @@ server.listen(port, async () => {
     assert(home.body.includes('property="og:url" content="https://portfolio.inpand.com/"'), 'Homepage OG URL matches canonical domain');
     assert(home.body.includes('name="twitter:card" content="summary_large_image"'), 'Homepage sets Twitter summary_large_image');
     assert(home.body.includes('name="viewport" content="width=device-width, initial-scale=1.0"'), 'Mobile viewport correctly defined');
+    assert(home.body.includes('name="google-site-verification"'), 'Homepage includes Google Search Console verification meta tag');
+
+    // 1B. Test Google Verification HTML File
+    const googleFile = await fetchUrl('/googleb136c2358023a065.html');
+    assert(googleFile.status === 200, 'googleb136c2358023a065.html responds with HTTP 200 OK');
+    assert(googleFile.body.includes('google-site-verification: googleb136c2358023a065.html'), 'googleb136c2358023a065.html contains exact verification string');
 
     // 2. Test Favicons
     const ico = await fetchUrl('/favicon.ico');
