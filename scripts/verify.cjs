@@ -209,6 +209,27 @@ assert(modalCode.includes('videoRef.current.pause()'), 'Video modal pauses playb
 const navbarCode = fs.readFileSync('src/components/layout/Navbar.tsx', 'utf-8');
 assert(navbarCode.includes('/software'), 'Navbar includes link to Software showcase');
 
+console.log('\n=== 8. VERIFYING SCROLL INTEGRITY & PAGE SCROLLING RESTORATION ===');
+const indexCss = fs.readFileSync('src/styles/index.css', 'utf-8');
+assert(indexCss.includes('overflow-y: auto') && indexCss.includes('scroll-behavior: smooth'), 'Global html enables overflow-y: auto and scroll-behavior: smooth');
+assert(indexCss.includes('min-height: 100%') && indexCss.includes('overflow-x: hidden') && indexCss.includes('overflow-y: auto'), 'Global body enforces min-height: 100%, overflow-x: hidden, overflow-y: auto');
+assert(indexCss.includes('#root') && indexCss.includes('min-height: 100vh') && indexCss.includes('overflow: visible'), 'Root container maintains min-height: 100vh and overflow: visible');
+assert(modalCode.includes('useScrollLock(Boolean(project))'), 'VideoPlaybackModal uses guarded useScrollLock(Boolean(project))');
+assert(!modalCode.includes("document.body.style.overflow = 'hidden'"), 'VideoPlaybackModal avoids unconditional raw body overflow lock');
+assert(modalCode.includes('if (!project) return;'), 'VideoPlaybackModal guards keyboard listener against unmounted execution');
+
+const projectsPageCode = fs.readFileSync('src/pages/ProjectsPage.tsx', 'utf-8');
+assert(projectsPageCode.includes('{selectedVideoProject && ('), 'ProjectsPage conditionally renders VideoPlaybackModal only when video is active');
+
+const homeFeaturedCode = fs.readFileSync('src/components/sections/HomeSoftwareFeatured.tsx', 'utf-8');
+assert(homeFeaturedCode.includes('{selectedVideo && ('), 'HomeSoftwareFeatured conditionally renders VideoPlaybackModal only when video is active');
+
+const softwarePageCode = fs.readFileSync('src/pages/SoftwareShowcasePage.tsx', 'utf-8');
+assert(softwarePageCode.includes('{activeVideoProject && ('), 'SoftwareShowcasePage conditionally renders VideoPlaybackModal only when video is active');
+
+const scrollToTopCode = fs.readFileSync('src/components/common/ScrollToTop.tsx', 'utf-8');
+assert(!scrollToTopCode.includes('[pathname, search]') && scrollToTopCode.includes('[pathname]'), 'ScrollToTop triggers only on route transitions, not in-page query changes');
+
 
 console.log('\n======================================================');
 console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);

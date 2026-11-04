@@ -160,3 +160,4 @@ export const SoftwareCard: React.FC<SoftwareCardProps> = ({ project, onPlayVideo
     </div>
   );
 };
+

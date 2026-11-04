@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SoftwareProject } from '../../types/software';
+import { useScrollLock } from '../../hooks/useScrollLock';
 import {
   X,
   Play,
@@ -36,8 +37,13 @@ export const VideoPlaybackModal: React.FC<VideoPlaybackModalProps> = ({ project,
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Prevent background scrolling while modal is active
+  useScrollLock(Boolean(project));
+
   // Close modal and pause video on escape key
   useEffect(() => {
+    if (!project) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -52,15 +58,11 @@ export const VideoPlaybackModal: React.FC<VideoPlaybackModalProps> = ({ project,
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    // Lock body scroll
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = originalOverflow;
     };
-  }, [onClose]);
+  }, [project, onClose]);
 
   // Clean pause on unmount or project change
   useEffect(() => {

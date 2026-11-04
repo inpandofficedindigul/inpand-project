@@ -208,10 +208,12 @@ export const ProjectsPage: React.FC = () => {
       </div>
 
       {/* Video Playback Modal */}
-      <VideoPlaybackModal
-        project={selectedVideoProject}
-        onClose={() => setSelectedVideoProject(null)}
-      />
+      {selectedVideoProject && (
+        <VideoPlaybackModal
+          project={selectedVideoProject}
+          onClose={() => setSelectedVideoProject(null)}
+        />
+      )}
     </div>
   );
 };

@@ -61,10 +61,13 @@ export const HomeSoftwareFeatured: React.FC = () => {
       </div>
 
       {/* Video Modal */}
-      <VideoPlaybackModal
-        project={selectedVideo}
-        onClose={() => setSelectedVideo(null)}
-      />
+      {selectedVideo && (
+        <VideoPlaybackModal
+          project={selectedVideo}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
     </section>
   );
 };
+

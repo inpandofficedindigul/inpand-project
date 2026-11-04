@@ -145,10 +145,13 @@ export const SoftwareShowcasePage: React.FC = () => {
       </div>
 
       {/* Video Playback Modal */}
-      <VideoPlaybackModal
-        project={activeVideoProject}
-        onClose={() => setActiveVideoProject(null)}
-      />
+      {activeVideoProject && (
+        <VideoPlaybackModal
+          project={activeVideoProject}
+          onClose={() => setActiveVideoProject(null)}
+        />
+      )}
     </div>
   );
 };
+

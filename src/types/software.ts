@@ -27,3 +27,4 @@ export interface SoftwareProject {
   features: string[];
   externalVideoUrl?: string; // Optional external CDN / Stream fallback
 }
+

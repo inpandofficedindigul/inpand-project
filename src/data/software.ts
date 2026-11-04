@@ -186,3 +186,4 @@ export function filterSoftwareProjects(slug: SoftwareFilterSlug): SoftwareProjec
 export function getSoftwareBySlug(slug: string): SoftwareProject | undefined {
   return SOFTWARE_PROJECTS.find((p) => p.slug === slug);
 }
+
