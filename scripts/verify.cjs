@@ -147,6 +147,86 @@ assert(configFile.includes('9080394828'), 'Phone verified as 9080394828');
 assert(configFile.includes('Transform Ideas Into Business Growth'), 'Tagline verified');
 assert(configFile.includes('MRC Complex, Guziliamparai, Dindigul – 624703'), 'Address verified');
 
+// 7. App & Electron Video Showcase Requirements
+console.log('\n=== 7. VERIFYING APP & ELECTRON VIDEO SHOWCASE ===');
+const gitignore = fs.readFileSync('.gitignore', 'utf-8');
+assert(gitignore.includes('Apps & Softwares Videos Rec/'), '.gitignore strictly excludes 415MB original source videos');
+
+assert(fs.existsSync('src/types/software.ts'), 'types/software.ts exists');
+assert(fs.existsSync('src/data/software.ts'), 'data/software.ts exists');
+assert(fs.existsSync('src/components/software/SoftwareCard.tsx'), 'SoftwareCard.tsx exists');
+assert(fs.existsSync('src/components/software/SoftwareFilter.tsx'), 'SoftwareFilter.tsx exists');
+assert(fs.existsSync('src/components/software/VideoPlaybackModal.tsx'), 'VideoPlaybackModal.tsx exists');
+assert(fs.existsSync('src/pages/SoftwareShowcasePage.tsx'), 'SoftwareShowcasePage.tsx exists');
+assert(fs.existsSync('src/styles/software-showcase.css'), 'software-showcase.css exists');
+
+const softwareData = fs.readFileSync('src/data/software.ts', 'utf-8');
+const expectedSoftwareSlugs = [
+  'eesan-tv-app',
+  'krishna-jewellers-app',
+  'krishna-software-erp',
+  'mei-alai-app',
+  'mrc-builders-erp',
+  'namma-jilla-app',
+];
+
+expectedSoftwareSlugs.forEach(slug => {
+  assert(softwareData.includes(`slug: '${slug}'`), `Software project data includes: ${slug}`);
+});
+
+assert(softwareData.includes("'Applications'"), "Category 'Applications' defined");
+assert(softwareData.includes("'Electron Desktop Applications'"), "Category 'Electron Desktop Applications' defined");
+assert(softwareData.includes("'All Software Projects'"), "Filter 'All Software Projects' defined");
+
+// Check optimized video files & posters on disk
+const softwareVideoFiles = [
+  'eesan-tv.mp4',
+  'krishna-jewellers.mp4',
+  'krishna-software.mp4',
+  'mei-alai.mp4',
+  'mrc-builders.mp4',
+  'namma-jilla.mp4',
+];
+
+let totalOptVideoBytes = 0;
+softwareVideoFiles.forEach(vf => {
+  const vp = path.join('public/videos/software', vf);
+  assert(fs.existsSync(vp), `Optimized video file exists: ${vf}`);
+  const st = fs.statSync(vp);
+  assert(st.size > 100000, `Video file ${vf} is non-empty (${st.size} bytes)`);
+  totalOptVideoBytes += st.size;
+});
+
+const totalOptMb = (totalOptVideoBytes / (1024 * 1024)).toFixed(1);
+assert(totalOptVideoBytes < 35 * 1024 * 1024, `Combined optimized video delivery size is lightweight (${totalOptMb} MB < 35 MB)`);
+
+const softwarePosters = [
+  'eesan-tv-poster.webp',
+  'krishna-jewellers-poster.webp',
+  'krishna-software-poster.webp',
+  'mei-alai-poster.webp',
+  'mrc-builders-poster.webp',
+  'namma-jilla-poster.webp',
+];
+
+softwarePosters.forEach(pf => {
+  const pp = path.join('public/images/software', pf);
+  assert(fs.existsSync(pp), `Video poster exists: ${pf}`);
+  const st = fs.statSync(pp);
+  assert(st.size > 5000, `Poster ${pf} is valid (${st.size} bytes)`);
+});
+
+const modalCode = fs.readFileSync('src/components/software/VideoPlaybackModal.tsx', 'utf-8');
+assert(modalCode.includes('preload="metadata"'), 'Video modal uses lazy metadata preloading');
+assert(modalCode.includes('togglePlayPause'), 'Video modal provides play/pause toggle');
+assert(modalCode.includes('toggleFullscreen'), 'Video modal provides fullscreen toggle');
+assert(modalCode.includes('toggleMute'), 'Video modal provides volume/mute toggle');
+assert(modalCode.includes('videoRef.current.pause()'), 'Video modal pauses playback when closing or switching');
+
+const navbarCode = fs.readFileSync('src/components/layout/Navbar.tsx', 'utf-8');
+assert(navbarCode.includes('/software'), 'Navbar includes link to Software showcase');
+
+
 console.log('\n======================================================');
 console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);
 console.log(`PASSED: ${passed}`);

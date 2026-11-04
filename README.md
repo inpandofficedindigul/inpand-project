@@ -9,11 +9,12 @@ Tagline: *"Transform Ideas Into Business Growth"*
 
 ## Primary Objectives
 
-- **Client Discovery**: Prospective clients can explore 14 real websites and digital solutions built by INPAND Technologies across key categories (*Dynamic Websites*, *Static Websites*, *Hybrid Websites*, *E-Commerce*, *SaaS & Technology*, *Media & Entertainment*, *Education*, *Real Estate*, *Business & Services*).
+- **Client Discovery**: Prospective clients can explore 14 real websites and 6 production applications (Mobile Applications and Electron Desktop Systems) built by INPAND Technologies.
+- **Application & Electron Video Showcase**: Walkthrough video previews of production mobile apps (iOS & Android) and Electron desktop ERP software with custom playback controls (play/pause, timeline scrubber, volume, fullscreen).
 - **Direct Communication**: Prospective clients can directly reach out via official WhatsApp (`9080394828`), email (`info@inpand.com`), or telephone.
 - **Client Domain Linking**: Secure external links directly to live client domains (`target="_blank" rel="noopener noreferrer"`).
-- **High-Performance Image Optimization**: Dual WebP thumbnails + full-resolution WebP screenshots alongside original PNG captures, with responsive loading and visual fallback placeholders.
-- **Content Purity & Production Readiness**: 14 fully integrated client projects with real screenshots, verified domains, and accurate business classifications. Zero fabricated client names or placeholder projects.
+- **High-Performance Image & Video Optimization**: Dual WebP thumbnails + full-resolution WebP screenshots for websites; H.264 FastStart optimized delivery clips (<19 MB total) + WebP poster frames for software walkthroughs.
+- **Content Purity & Production Readiness**: 14 fully integrated client website projects and 6 software application video showcases with real assets, verified domains, and accurate business classifications. Zero fabricated client names or placeholder projects.
 
 ---
 

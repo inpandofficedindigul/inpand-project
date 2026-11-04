@@ -13,6 +13,8 @@ dist-ssr
 *.local
 *.tsbuildinfo
 website-screenshots/
+Apps & Softwares Videos Rec/
+temp_frames/
 
 # Editor directories and files
 .vscode/*

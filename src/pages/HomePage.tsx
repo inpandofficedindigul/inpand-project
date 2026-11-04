@@ -2,6 +2,7 @@ import React from 'react';
 import { HomeHero } from '../components/sections/HomeHero';
 import { HomeCategories } from '../components/sections/HomeCategories';
 import { HomeFeatured } from '../components/sections/HomeFeatured';
+import { HomeSoftwareFeatured } from '../components/sections/HomeSoftwareFeatured';
 import { HomeAbout } from '../components/sections/HomeAbout';
 import { HomeProcess } from '../components/sections/HomeProcess';
 import { HomeContactCTA } from '../components/sections/HomeContactCTA';
@@ -22,6 +23,7 @@ export const HomePage: React.FC = () => {
       <HomeHero />
       <HomeCategories />
       <HomeFeatured featuredProjects={featured} />
+      <HomeSoftwareFeatured />
       <HomeAbout />
       <HomeProcess />
       <HomeContactCTA />

@@ -3,6 +3,7 @@ import { Layout } from './components/layout/Layout';
 import { HomePage } from './pages/HomePage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
+import { SoftwareShowcasePage } from './pages/SoftwareShowcasePage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -14,6 +15,8 @@ export function App() {
         <Route index element={<HomePage />} />
         <Route path="projects" element={<ProjectsPage />} />
         <Route path="projects/:slug" element={<ProjectDetailPage />} />
+        <Route path="software" element={<SoftwareShowcasePage />} />
+        <Route path="apps" element={<SoftwareShowcasePage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />

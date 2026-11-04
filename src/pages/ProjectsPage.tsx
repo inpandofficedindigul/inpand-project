@@ -6,7 +6,7 @@ import { ProjectFilter } from '../components/projects/ProjectFilter';
 import { LaptopShowcase } from '../components/projects/LaptopShowcase';
 import { ProjectEmptyState } from '../components/projects/ProjectEmptyState';
 import { SEOHead } from '../components/common/SEOHead';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight, AppWindow } from 'lucide-react';
 
 export const ProjectsPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,13 +67,22 @@ export const ProjectsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Navigation Breadcrumb back to Home */}
-        <div className="mb-8">
+        <div className="flex items-center justify-between mb-8">
           <Link
             to="/"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-primary transition-colors group"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
             <span>Return to Homepage</span>
+          </Link>
+
+          <Link
+            to="/software"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 border border-border rounded-sm text-xs font-semibold text-accent shadow-subtle transition-all group"
+          >
+            <AppWindow size={14} />
+            <span>Apps & Desktop Software</span>
+            <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
 

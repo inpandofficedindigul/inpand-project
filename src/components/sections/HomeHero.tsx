@@ -36,15 +36,16 @@ export const HomeHero: React.FC = () => {
                 size="lg"
                 icon={<ArrowUpRight size={16} />}
               >
-                Explore Our Work
+                Website Showcase
               </Button>
 
               <Button
-                to="/contact"
+                to="/software"
                 variant="secondary"
                 size="lg"
+                icon={<ArrowUpRight size={16} />}
               >
-                Discuss Your Project
+                Apps &amp; Electron Software
               </Button>
             </div>
           </div>
