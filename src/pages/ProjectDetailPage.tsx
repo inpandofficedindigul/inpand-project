@@ -17,7 +17,7 @@ export const ProjectDetailPage: React.FC = () => {
   if (!project) {
     return (
       <div className="py-20 md:py-28">
-        <SEOHead title="Project Not Found — INPAND Portfolio" />
+        <SEOHead title="Project Not Found — INPAND Portfolio" noindex={true} />
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-6 shadow-subtle text-accent">
             <HelpCircle size={26} />
@@ -60,6 +60,22 @@ export const ProjectDetailPage: React.FC = () => {
         title={`${project.title} — Client Portfolio`}
         description={project.shortDescription}
         image={project.thumbnail}
+        path={`/projects/${project.slug}`}
+        type="article"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'CreativeWork',
+          name: project.title,
+          description: project.overview || project.shortDescription,
+          url: `https://portfolio.inpand.com/projects/${project.slug}`,
+          image: `https://portfolio.inpand.com${project.thumbnail}`,
+          creator: {
+            '@type': 'Organization',
+            name: 'INPAND Technologies',
+            url: 'https://portfolio.inpand.com/',
+          },
+          keywords: [project.category, project.websiteType, ...(project.technologies || [])].join(', '),
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -212,6 +228,8 @@ export const ProjectDetailPage: React.FC = () => {
               src={displayImage}
               alt={`Full website screenshot of ${project.title}`}
               fetchPriority="high"
+              width={1440}
+              height={900}
               className="w-full h-auto object-top"
             />
           </div>

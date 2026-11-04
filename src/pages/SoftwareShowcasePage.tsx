@@ -47,6 +47,7 @@ export const SoftwareShowcasePage: React.FC = () => {
       <SEOHead
         title="App & Electron Video Showcase — INPAND Technologies"
         description="Explore video previews of mobile applications and Electron desktop software developed by INPAND Technologies."
+        path="/software"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

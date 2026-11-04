@@ -77,6 +77,7 @@ export const ProjectsPage: React.FC = () => {
             ? `Explore ${activeCategory.name.toLowerCase()} delivered by INPAND Technologies. ${activeCategory.description}`
             : 'Explore a collection of digital platforms, business websites and technology solutions delivered by INPAND Technologies.'
         }
+        path="/projects"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

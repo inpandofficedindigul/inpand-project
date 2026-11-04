@@ -243,6 +243,82 @@ assert(softwarePageCode.includes('{activeVideoProject && ('), 'SoftwareShowcaseP
 const scrollToTopCode = fs.readFileSync('src/components/common/ScrollToTop.tsx', 'utf-8');
 assert(!scrollToTopCode.includes('[pathname, search]') && scrollToTopCode.includes('[pathname]'), 'ScrollToTop triggers only on route transitions, not in-page query changes');
 
+console.log('\n=== 9. VERIFYING PRODUCTION SEO, FAVICONS, SITEMAP & TECHNICAL AUDIT ===');
+const indexHtml = fs.readFileSync('index.html', 'utf-8');
+assert(indexHtml.includes('<title>INPAND Technologies Portfolio | Our Projects & Digital Solutions</title>'), 'index.html has exact production title');
+assert(indexHtml.includes("content=\"Explore INPAND Technologies' portfolio of websites, software applications, digital solutions and innovative projects built for businesses.\""), 'index.html has exact meta description');
+assert(indexHtml.includes('rel="canonical" href="https://portfolio.inpand.com/"'), 'index.html has exact canonical URL');
+assert(indexHtml.includes('name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"'), 'index.html has production robots directive');
+assert(indexHtml.includes('name="theme-color" content="#315EFB"'), 'index.html sets brand theme-color #315EFB');
+assert(indexHtml.includes('property="og:url" content="https://portfolio.inpand.com/"'), 'index.html sets Open Graph canonical URL');
+assert(indexHtml.includes('name="twitter:card" content="summary_large_image"'), 'index.html declares Twitter summary_large_image');
+
+// Favicons verification
+assert(fs.existsSync('public/favicon.ico'), 'Favicon public/favicon.ico exists');
+assert(fs.statSync('public/favicon.ico').size > 500, 'favicon.ico is valid binary size');
+assert(fs.existsSync('public/favicon.svg'), 'Favicon public/favicon.svg exists');
+assert(fs.existsSync('public/favicon-16x16.png'), 'Favicon public/favicon-16x16.png exists');
+assert(fs.existsSync('public/favicon-32x32.png'), 'Favicon public/favicon-32x32.png exists');
+assert(fs.existsSync('public/favicon-48x48.png'), 'Favicon public/favicon-48x48.png exists');
+assert(fs.existsSync('public/apple-touch-icon.png'), 'Apple touch icon public/apple-touch-icon.png exists');
+assert(fs.existsSync('public/site.webmanifest'), 'Web manifest public/site.webmanifest exists');
+
+// Head favicon references
+assert(indexHtml.includes('rel="icon" type="image/svg+xml" href="/favicon.svg"'), 'index.html references vector SVG favicon');
+assert(indexHtml.includes('rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"'), 'index.html references apple-touch-icon.png');
+assert(indexHtml.includes('rel="manifest" href="/site.webmanifest"'), 'index.html references site.webmanifest');
+
+// Sitemap verification
+assert(fs.existsSync('public/sitemap.xml'), 'public/sitemap.xml exists');
+const sitemapContent = fs.readFileSync('public/sitemap.xml', 'utf-8');
+assert(sitemapContent.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'), 'sitemap.xml has valid schema declaration');
+assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/</loc>'), 'sitemap.xml includes homepage');
+assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/projects</loc>'), 'sitemap.xml includes /projects');
+assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/software</loc>'), 'sitemap.xml includes /software');
+assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/about</loc>'), 'sitemap.xml includes /about');
+assert(sitemapContent.includes('<loc>https://portfolio.inpand.com/contact</loc>'), 'sitemap.xml includes /contact');
+
+// Verify all 14 project detail pages exist in sitemap
+const projectSlugsList = [
+  'mei-alai', 'namma-jilla', 'innomedex', 'mei-alai-sports',
+  'nizhal-visuals', 'moonlight-enterprises', 'eesan-tv', 'image-scraper',
+  'focus-tourism', 'inpand-academy', 'med-jewel', 'dove-education',
+  'land-plot', 'kumars-real-estate'
+];
+projectSlugsList.forEach(slug => {
+  assert(sitemapContent.includes(`<loc>https://portfolio.inpand.com/projects/${slug}</loc>`), `sitemap.xml includes project /projects/${slug}`);
+});
+
+// Robots.txt verification
+assert(fs.existsSync('public/robots.txt'), 'public/robots.txt exists');
+const robotsContent = fs.readFileSync('public/robots.txt', 'utf-8');
+assert(robotsContent.includes('Allow: /'), 'robots.txt allows crawling public content');
+assert(robotsContent.includes('Sitemap: https://portfolio.inpand.com/sitemap.xml'), 'robots.txt declares canonical sitemap');
+assert(robotsContent.includes('Disallow: /admin/'), 'robots.txt blocks non-public paths');
+
+// Structured Data verification
+const structuredDataMatch = indexHtml.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+assert(Boolean(structuredDataMatch), 'index.html contains JSON-LD structured data script');
+if (structuredDataMatch) {
+  try {
+    const parsedData = JSON.parse(structuredDataMatch[1]);
+    assert(parsedData['@context'] === 'https://schema.org', 'JSON-LD context is schema.org');
+    const graph = parsedData['@graph'] || [parsedData];
+    assert(graph.some(item => item['@type'] === 'Organization'), 'Structured data includes Organization');
+    assert(graph.some(item => item['@type'] === 'WebSite'), 'Structured data includes WebSite');
+    assert(graph.some(item => item.url === 'https://portfolio.inpand.com/'), 'Structured data declares https://portfolio.inpand.com/');
+  } catch (err) {
+    assert(false, `JSON-LD structured data is valid JSON: ${err.message}`);
+  }
+}
+
+// SEOHead component capability verification
+const seoHeadCode = fs.readFileSync('src/components/common/SEOHead.tsx', 'utf-8');
+assert(seoHeadCode.includes('exactTitle'), 'SEOHead supports exactTitle override');
+assert(seoHeadCode.includes('structuredData'), 'SEOHead supports dynamic structuredData injection');
+assert(seoHeadCode.includes('noindex'), 'SEOHead supports noindex for error routes');
+assert(seoHeadCode.includes('canonicalUrl'), 'SEOHead handles canonical URL management');
+
 
 console.log('\n======================================================');
 console.log(`TOTAL AUDIT CHECKS: ${passed + failed}`);

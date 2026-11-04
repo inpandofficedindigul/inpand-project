@@ -19,6 +19,9 @@ export const Footer: React.FC = () => {
                 src="/images/inpand-logo-horizontal.png"
                 alt="INPAND Technologies — The Business Point"
                 className="h-9 sm:h-10 w-auto object-contain hover:opacity-90 transition-opacity"
+                width={240}
+                height={40}
+                loading="lazy"
               />
             </Link>
 

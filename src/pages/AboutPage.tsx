@@ -64,6 +64,7 @@ export const AboutPage: React.FC = () => {
       <SEOHead
         title="About INPAND Technologies — Digital Studio & Craft"
         description={`${COMPANY_CONFIG.tagline}. Learn about INPAND Technologies, our digital services, and our approach to delivering client websites and web applications.`}
+        path="/about"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -31,6 +31,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               src={project.thumbnail}
               alt={`Website screenshot of ${project.title}`}
               loading={priority ? 'eager' : 'lazy'}
+              width={640}
+              height={400}
               onError={() => setImageError(true)}
               className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />

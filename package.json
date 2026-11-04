@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/build-sitemap.cjs && tsc -b && vite build",
+    "build:favicons": "node scripts/build-favicons.cjs",
+    "build:sitemap": "node scripts/build-sitemap.cjs",
+    "verify": "node scripts/verify.cjs",
     "preview": "vite preview"
   },
   "dependencies": {

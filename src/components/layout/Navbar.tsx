@@ -53,6 +53,8 @@ export const Navbar: React.FC = () => {
                 src="/images/inpand-logo-horizontal.png"
                 alt="INPAND Technologies — The Business Point"
                 className="h-8 sm:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90"
+                width={200}
+                height={36}
               />
             </Link>
 

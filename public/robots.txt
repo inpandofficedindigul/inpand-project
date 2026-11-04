@@ -1,5 +1,11 @@
+# INPAND Technologies Portfolio — Production Robots Configuration
 User-agent: *
 Allow: /
 
-# Canonical sitemap will be declared upon domain finalization by INPAND Technologies management
-Sitemap: /sitemap.xml
+# Private, administrative and API route exclusions
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Canonical Sitemap Declaration
+Sitemap: https://portfolio.inpand.com/sitemap.xml

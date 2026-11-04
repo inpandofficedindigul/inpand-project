@@ -52,8 +52,9 @@ export const COMPANY_CONFIG = {
     },
   ],
 
-  // Configurable showcase canonical domain (empty until finalized by management)
-  showcaseDomain: '',
+  // Production showcase canonical domain (https://portfolio.inpand.com/)
+  showcaseDomain: 'https://portfolio.inpand.com',
+  canonicalDomain: 'https://portfolio.inpand.com',
 };
 
 /**

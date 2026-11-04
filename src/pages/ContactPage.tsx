@@ -10,6 +10,7 @@ export const ContactPage: React.FC = () => {
       <SEOHead
         title="Contact & Enquiries — INPAND Technologies"
         description={`Connect with INPAND Technologies via official WhatsApp (${COMPANY_CONFIG.phoneDisplay}), email (${COMPANY_CONFIG.email}), or phone to discuss your website or web application project.`}
+        path="/contact"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

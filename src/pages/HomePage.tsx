@@ -8,7 +8,6 @@ import { HomeProcess } from '../components/sections/HomeProcess';
 import { HomeContactCTA } from '../components/sections/HomeContactCTA';
 import { SEOHead } from '../components/common/SEOHead';
 import { getFeaturedProjects } from '../data/projects';
-import { COMPANY_CONFIG } from '../lib/config';
 
 export const HomePage: React.FC = () => {
   const featured = getFeaturedProjects();
@@ -16,8 +15,11 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Digital Project Showcase"
-        description={`${COMPANY_CONFIG.tagline}. Explore websites, e-commerce storefronts, and custom web applications developed by INPAND Technologies.`}
+        title="INPAND Technologies Portfolio | Our Projects & Digital Solutions"
+        exactTitle={true}
+        description="Explore INPAND Technologies' portfolio of websites, software applications, digital solutions and innovative projects built for businesses."
+        canonicalUrl="https://portfolio.inpand.com/"
+        path="/"
       />
 
       <HomeHero />

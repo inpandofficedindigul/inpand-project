@@ -40,6 +40,8 @@ export const SoftwareCard: React.FC<SoftwareCardProps> = ({ project, onPlayVideo
                     alt={`${project.title} app preview poster`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    width={280}
+                    height={590}
                   />
                 </picture>
 
@@ -80,6 +82,8 @@ export const SoftwareCard: React.FC<SoftwareCardProps> = ({ project, onPlayVideo
                     alt={`${project.title} software preview poster`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    width={640}
+                    height={360}
                   />
                 </picture>
 
