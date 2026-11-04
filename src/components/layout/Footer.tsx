@@ -126,14 +126,36 @@ export const Footer: React.FC = () => {
                 <span>{COMPANY_CONFIG.phoneDisplay}</span>
               </a>
 
-              <div className="inline-flex items-start gap-2 pt-1 text-xs">
-                <MapPin size={15} className="shrink-0 text-secondary mt-0.5" />
-                <span>{COMPANY_CONFIG.address}</span>
-              </div>
-
               <div className="inline-flex items-center gap-2 text-xs">
                 <Clock size={15} className="shrink-0 text-secondary" />
                 <span>{COMPANY_CONFIG.workingHours}</span>
+              </div>
+
+              {/* Both Official Office Locations */}
+              <div className="pt-2.5 border-t border-border/80 flex flex-col gap-2.5 text-xs">
+                <div className="flex items-start gap-2">
+                  <MapPin size={14} className="shrink-0 text-accent mt-0.5" />
+                  <div>
+                    <span className="font-bold text-primary block text-[11px] uppercase tracking-wider">
+                      Head Office
+                    </span>
+                    <span className="text-secondary leading-snug">
+                      {COMPANY_CONFIG.headOffice.address}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <MapPin size={14} className="shrink-0 text-accent mt-0.5" />
+                  <div>
+                    <span className="font-bold text-primary block text-[11px] uppercase tracking-wider">
+                      Branch Office
+                    </span>
+                    <span className="text-secondary leading-snug">
+                      {COMPANY_CONFIG.branchOffice.address}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

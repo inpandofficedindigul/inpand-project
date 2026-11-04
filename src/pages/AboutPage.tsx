@@ -119,8 +119,13 @@ export const AboutPage: React.FC = () => {
               </div>
 
               <div>
-                <span className="text-secondary block text-xs mb-1">Office Location</span>
-                <span className="font-semibold text-primary">{COMPANY_CONFIG.address}</span>
+                <span className="text-secondary block text-xs mb-1 font-medium">Head Office</span>
+                <span className="font-semibold text-primary block">{COMPANY_CONFIG.headOffice.address}</span>
+              </div>
+
+              <div>
+                <span className="text-secondary block text-xs mb-1 font-medium">Branch Office</span>
+                <span className="font-semibold text-primary block">{COMPANY_CONFIG.branchOffice.address}</span>
               </div>
 
               <div>

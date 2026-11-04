@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Mail, Phone, Clock, MapPin, ArrowUpRight, HelpCircle } from 'lucide-react';
+import { MessageSquare, Mail, Phone, Clock, MapPin, Building2, ArrowUpRight, HelpCircle } from 'lucide-react';
 import { Button } from '../components/common/Button';
 import { SEOHead } from '../components/common/SEOHead';
 import { COMPANY_CONFIG, generateGeneralWhatsAppLink, generateGeneralEmailLink } from '../lib/config';
@@ -144,36 +144,86 @@ export const ContactPage: React.FC = () => {
 
         </div>
 
-        {/* Office Location & Operating Schedule */}
+        {/* Office Locations & Operating Schedule */}
         <div className="bg-white rounded-md border border-border p-8 sm:p-10 mb-12 shadow-subtle">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+          <div className="mb-6 pb-4 border-b border-border/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+              <h2 className="font-heading font-bold text-xl text-primary">
+                Official Office Locations
+              </h2>
+              <p className="text-xs sm:text-sm text-secondary">
+                Visit or write to INPAND Technologies at either of our verified office branches in Dindigul.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#F7F7F5] border border-border rounded text-[11px] font-semibold text-secondary self-start sm:self-auto">
+              <Building2 size={13} className="text-accent" />
+              <span>2 Verified Locations</span>
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-sm">
             
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-sm bg-[#F7F7F5] border border-border flex items-center justify-center text-accent shrink-0 mt-0.5">
-                <MapPin size={20} />
+            {/* Head Office */}
+            <div className="flex items-start gap-4 p-5 rounded-md bg-[#F7F7F5]/70 border border-border/80">
+              <div className="w-10 h-10 rounded-sm bg-white border border-border flex items-center justify-center text-accent shrink-0 mt-0.5 shadow-subtle">
+                <Building2 size={20} />
               </div>
-              <div>
-                <h3 className="font-heading font-bold text-base text-primary mb-1">
-                  Office Location
-                </h3>
-                <p className="text-secondary text-sm leading-relaxed mb-2">
-                  {COMPANY_CONFIG.address}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <h3 className="font-heading font-bold text-base text-primary">
+                    Head Office
+                  </h3>
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-accent/10 text-accent rounded-sm">
+                    Main HQ
+                  </span>
+                </div>
+                <p className="text-secondary text-sm leading-relaxed mb-2 font-medium">
+                  {COMPANY_CONFIG.headOffice.address}
                 </p>
                 <p className="text-xs text-secondary/80">
-                  Registered development office for INPAND Technologies.
+                  Registered corporate and engineering development headquarters.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-sm bg-[#F7F7F5] border border-border flex items-center justify-center text-accent shrink-0 mt-0.5">
+            {/* Branch Office */}
+            <div className="flex items-start gap-4 p-5 rounded-md bg-[#F7F7F5]/70 border border-border/80">
+              <div className="w-10 h-10 rounded-sm bg-white border border-border flex items-center justify-center text-accent shrink-0 mt-0.5 shadow-subtle">
+                <MapPin size={20} />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <h3 className="font-heading font-bold text-base text-primary">
+                    Branch Office
+                  </h3>
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 rounded-sm">
+                    Branch
+                  </span>
+                </div>
+                <p className="text-secondary text-sm leading-relaxed mb-2 font-medium">
+                  {COMPANY_CONFIG.branchOffice.address}
+                </p>
+                <p className="text-xs text-secondary/80">
+                  Client consultation, project onboarding, and meeting facility.
+                </p>
+              </div>
+            </div>
+
+            {/* Operating Schedule */}
+            <div className="flex items-start gap-4 p-5 rounded-md bg-[#F7F7F5]/70 border border-border/80">
+              <div className="w-10 h-10 rounded-sm bg-white border border-border flex items-center justify-center text-accent shrink-0 mt-0.5 shadow-subtle">
                 <Clock size={20} />
               </div>
-              <div>
-                <h3 className="font-heading font-bold text-base text-primary mb-1">
-                  Working Hours
-                </h3>
-                <p className="text-secondary text-sm leading-relaxed mb-2">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <h3 className="font-heading font-bold text-base text-primary">
+                    Operating Hours
+                  </h3>
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-primary/10 text-primary rounded-sm">
+                    Standard
+                  </span>
+                </div>
+                <p className="text-secondary text-sm leading-relaxed mb-2 font-medium">
                   {COMPANY_CONFIG.workingHours}
                 </p>
                 <p className="text-xs text-secondary/80">

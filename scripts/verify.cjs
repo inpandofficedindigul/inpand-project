@@ -123,12 +123,25 @@ assert(detailFile.includes('Visit Live Website'), 'Detail page displays Visit Li
 assert(detailFile.includes('target="_blank"'), 'Detail page opens external link in new tab');
 
 // 6. Verified Company Information
-console.log('\n=== 6. VERIFYING INPAND TECHNOLOGIES COMPANY COORDINATES ===');
+console.log('\n=== 6. VERIFYING INPAND TECHNOLOGIES COMPANY COORDINATES & DUAL BRANCHES ===');
 const configFile = fs.readFileSync('src/lib/config.ts', 'utf-8');
 assert(configFile.includes('info@inpand.com'), 'Email verified as info@inpand.com');
 assert(configFile.includes('9080394828'), 'Phone verified as 9080394828');
 assert(configFile.includes('Transform Ideas Into Business Growth'), 'Tagline verified');
-assert(configFile.includes('MRC Complex, Guziliamparai, Dindigul – 624703'), 'Address verified');
+assert(configFile.includes('MRC Complex, Guziliamparai, Dindigul – 624703'), 'Head office address verified');
+assert(configFile.includes("8/A, S.S Towers, 5th Cross Spencer's Compound"), 'Branch office address verified in config');
+
+const footerCode = fs.readFileSync('src/components/layout/Footer.tsx', 'utf-8');
+assert(footerCode.includes('COMPANY_CONFIG.headOffice.address') && footerCode.includes('Head Office'), 'Footer renders Head Office branch');
+assert(footerCode.includes('COMPANY_CONFIG.branchOffice.address') && footerCode.includes('Branch Office'), 'Footer renders Branch Office branch');
+
+const contactPageCode = fs.readFileSync('src/pages/ContactPage.tsx', 'utf-8');
+assert(contactPageCode.includes('COMPANY_CONFIG.headOffice.address') && contactPageCode.includes('Head Office'), 'Contact page renders Head Office branch');
+assert(contactPageCode.includes('COMPANY_CONFIG.branchOffice.address') && contactPageCode.includes('Branch Office'), 'Contact page renders Branch Office branch');
+
+const aboutPageCode = fs.readFileSync('src/pages/AboutPage.tsx', 'utf-8');
+assert(aboutPageCode.includes('COMPANY_CONFIG.headOffice.address') && aboutPageCode.includes('Head Office'), 'About page renders Head Office branch');
+assert(aboutPageCode.includes('COMPANY_CONFIG.branchOffice.address') && aboutPageCode.includes('Branch Office'), 'About page renders Branch Office branch');
 
 // 7. App & Electron Video Showcase Requirements
 console.log('\n=== 7. VERIFYING APP & ELECTRON VIDEO SHOWCASE ===');

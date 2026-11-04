@@ -18,6 +18,40 @@ export const COMPANY_CONFIG = {
   address: 'MRC Complex, Guziliamparai, Dindigul – 624703',
   workingHours: 'Monday–Saturday, 9:00 AM–6:00 PM',
 
+  // Official Office Locations from https://www.inpand.com/
+  headOffice: {
+    title: 'Head Office',
+    address: 'MRC Complex, Guziliamparai, Dindigul – 624703',
+    lines: ['MRC Complex', 'Guziliamparai', 'Dindigul – 624703'],
+    pincode: '624703',
+  },
+  branchOffice: {
+    title: 'Branch Office',
+    address: "8/A, S.S Towers, 5th Cross Spencer's Compound, Near Kurinji Lodge, Dindigul – 624001",
+    lines: ['8/A, S.S Towers', "5th Cross Spencer's Compound", 'Near Kurinji Lodge', 'Dindigul – 624001'],
+    pincode: '624001',
+  },
+  offices: [
+    {
+      type: 'Head Office',
+      title: 'Head Office',
+      address: 'MRC Complex, Guziliamparai, Dindigul – 624703',
+      lines: ['MRC Complex', 'Guziliamparai', 'Dindigul – 624703'],
+      landmark: 'MRC Complex',
+      pincode: '624703',
+      isPrimary: true,
+    },
+    {
+      type: 'Branch Office',
+      title: 'Branch Office',
+      address: "8/A, S.S Towers, 5th Cross Spencer's Compound, Near Kurinji Lodge, Dindigul – 624001",
+      lines: ['8/A, S.S Towers', "5th Cross Spencer's Compound", 'Near Kurinji Lodge', 'Dindigul – 624001'],
+      landmark: 'Near Kurinji Lodge',
+      pincode: '624001',
+      isPrimary: false,
+    },
+  ],
+
   // Configurable showcase canonical domain (empty until finalized by management)
   showcaseDomain: '',
 };
