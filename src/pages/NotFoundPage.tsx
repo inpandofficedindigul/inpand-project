@@ -6,7 +6,13 @@ import { SEOHead } from '../components/common/SEOHead';
 export const NotFoundPage: React.FC = () => {
   return (
     <div className="py-24 md:py-36 flex items-center justify-center">
-      <SEOHead title="404 — Page Not Found" noindex={true} />
+      <SEOHead
+        title="404 - Page Not Found | INPAND Technologies"
+        exactTitle={true}
+        description="The requested page could not be found on INPAND Technologies Portfolio."
+        noindex={true}
+        robots="noindex, nofollow"
+      />
 
       <div className="max-w-xl mx-auto px-4 text-center">
         <span className="font-mono text-xs font-bold uppercase tracking-widest text-accent mb-4 block">

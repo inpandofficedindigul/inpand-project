@@ -62,9 +62,22 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <SEOHead
-        title="About INPAND Technologies — Digital Studio & Craft"
-        description={`${COMPANY_CONFIG.tagline}. Learn about INPAND Technologies, our digital services, and our approach to delivering client websites and web applications.`}
+        title="About INPAND Technologies | Custom Software & Web Development Studio"
+        exactTitle={true}
+        description="Learn about INPAND Technologies, a digital agency and software engineering firm in Dindigul, Tamil Nadu. Transforming ideas into business growth."
         path="/about"
+        keywords={[
+          'About INPAND Technologies',
+          'Software Company Dindigul',
+          'Web Development Agency',
+          'Custom Software Solutions',
+          'Digital Studio Tamil Nadu',
+          'Business Automation',
+        ]}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'About', url: '/about' },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

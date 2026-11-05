@@ -57,20 +57,36 @@ export const ProjectDetailPage: React.FC = () => {
   return (
     <article className="py-10 md:py-16">
       <SEOHead
-        title={`${project.title} — Client Portfolio`}
-        description={project.shortDescription}
+        title={`${project.title} - ${project.category} Portfolio | INPAND Technologies`}
+        exactTitle={true}
+        description={`${project.shortDescription} Delivered by INPAND Technologies.`}
         image={project.thumbnail}
         path={`/projects/${project.slug}`}
         type="article"
+        keywords={[
+          project.title,
+          project.category,
+          project.websiteType,
+          'INPAND Technologies',
+          'Client Portfolio',
+          'Web Development',
+        ]}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Projects', url: '/projects' },
+          { name: project.title, url: `/projects/${project.slug}` },
+        ]}
         structuredData={{
-          '@context': 'https://schema.org',
           '@type': 'CreativeWork',
+          '@id': `https://portfolio.inpand.com/projects/${project.slug}#creativework`,
           name: project.title,
           description: project.overview || project.shortDescription,
           url: `https://portfolio.inpand.com/projects/${project.slug}`,
           image: `https://portfolio.inpand.com${project.thumbnail}`,
+          genre: project.category,
           creator: {
             '@type': 'Organization',
+            '@id': 'https://portfolio.inpand.com/#organization',
             name: 'INPAND Technologies',
             url: 'https://portfolio.inpand.com/',
           },
