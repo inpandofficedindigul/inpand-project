@@ -20,6 +20,18 @@ export const HomePage: React.FC = () => {
         description="Explore INPAND Technologies' portfolio of websites, software applications, digital solutions and innovative projects built for businesses."
         canonicalUrl="https://portfolio.inpand.com/"
         path="/"
+        keywords={[
+          'INPAND Technologies',
+          'INPAND Technologies Portfolio',
+          'Software Development',
+          'Web Development',
+          'Custom Software Solutions',
+          'Electron Desktop Applications',
+          'ERP Development',
+          'Business Automation',
+          'Dindigul Software Company',
+        ]}
+        breadcrumbs={[{ name: 'Home', url: '/' }]}
       />
 
       <HomeHero />

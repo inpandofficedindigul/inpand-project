@@ -71,13 +71,27 @@ export const ProjectsPage: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <SEOHead
-        title={activeCategory ? `${activeCategory.name} — Our Portfolio` : 'Our Portfolio — Completed Client Websites & Software'}
+        title={activeCategory ? `${activeCategory.name} Projects | INPAND Technologies` : 'Client Projects & Websites Portfolio | INPAND Technologies'}
+        exactTitle={true}
         description={
           activeCategory
             ? `Explore ${activeCategory.name.toLowerCase()} delivered by INPAND Technologies. ${activeCategory.description}`
-            : 'Explore a collection of digital platforms, business websites and technology solutions delivered by INPAND Technologies.'
+            : 'Browse 13 verified client websites delivered by INPAND Technologies across dynamic, static, hybrid, and e-commerce platforms with live demos.'
         }
         path="/projects"
+        keywords={[
+          'INPAND Projects',
+          'Client Website Portfolio',
+          'Web Development Showcase',
+          'Dynamic Websites',
+          'Static Websites',
+          'Hybrid Web Platforms',
+          'E-commerce Web Development',
+        ]}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Projects', url: '/projects' },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

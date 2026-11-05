@@ -8,9 +8,23 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <SEOHead
-        title="Contact & Enquiries — INPAND Technologies"
-        description={`Connect with INPAND Technologies via official WhatsApp (${COMPANY_CONFIG.phoneDisplay}), email (${COMPANY_CONFIG.email}), or phone to discuss your website or web application project.`}
+        title="Contact INPAND Technologies | Digital Project Enquiries & Offices"
+        exactTitle={true}
+        description="Connect with INPAND Technologies for custom software development, websites, and business automation. Visit our Dindigul offices or reach us via WhatsApp & phone."
         path="/contact"
+        keywords={[
+          'Contact INPAND Technologies',
+          'INPAND Dindigul Office',
+          'Software Enquiry',
+          'Website Development Contact',
+          'WhatsApp INPAND Technologies',
+          'Spencer Compound Dindigul',
+          'Guziliamparai Office',
+        ]}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Contact', url: '/contact' },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

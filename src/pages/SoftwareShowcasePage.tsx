@@ -45,9 +45,23 @@ export const SoftwareShowcasePage: React.FC = () => {
   return (
     <div className="py-12 md:py-16">
       <SEOHead
-        title="App & Electron Video Showcase — INPAND Technologies"
-        description="Explore video previews of mobile applications and Electron desktop software developed by INPAND Technologies."
+        title="Mobile Applications & Electron Desktop Software Showcase | INPAND Technologies"
+        exactTitle={true}
+        description="Explore video showcases of mobile apps and Electron desktop software developed by INPAND Technologies, including retail ERP and media streaming."
         path="/software"
+        keywords={[
+          'INPAND Software',
+          'Mobile Applications',
+          'Electron Desktop Apps',
+          'Retail ERP Software',
+          'Desktop Software Development',
+          'Cross-Platform Applications',
+          'Custom Software Solutions',
+        ]}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Software', url: '/software' },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

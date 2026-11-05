@@ -321,6 +321,21 @@ assert(seoHeadCode.includes('exactTitle'), 'SEOHead supports exactTitle override
 assert(seoHeadCode.includes('structuredData'), 'SEOHead supports dynamic structuredData injection');
 assert(seoHeadCode.includes('noindex'), 'SEOHead supports noindex for error routes');
 assert(seoHeadCode.includes('canonicalUrl'), 'SEOHead handles canonical URL management');
+assert(seoHeadCode.includes('breadcrumbs'), 'SEOHead supports dynamic breadcrumb schema injection');
+assert(seoHeadCode.includes('keywords'), 'SEOHead supports meta keywords injection');
+
+console.log('\n=== 10. VERIFYING PRERENDERING AND TECHNICAL SEO ARTIFACTS ===');
+assert(fs.existsSync('scripts/prerender.cjs'), 'scripts/prerender.cjs exists');
+if (fs.existsSync('dist')) {
+  assert(fs.existsSync('dist/projects/index.html'), 'dist/projects/index.html exists');
+  assert(fs.existsSync('dist/software/index.html'), 'dist/software/index.html exists');
+  assert(fs.existsSync('dist/about/index.html'), 'dist/about/index.html exists');
+  assert(fs.existsSync('dist/contact/index.html'), 'dist/contact/index.html exists');
+  assert(fs.existsSync('dist/404.html'), 'dist/404.html exists');
+  assert(fs.existsSync('dist/projects/mei-alai/index.html'), 'dist/projects/mei-alai/index.html exists');
+  assert(fs.existsSync('dist/projects/namma-jilla/index.html'), 'dist/projects/namma-jilla/index.html exists');
+  assert(fs.existsSync('dist/projects/kumars-real-estate/index.html'), 'dist/projects/kumars-real-estate/index.html exists');
+}
 
 
 console.log('\n======================================================');

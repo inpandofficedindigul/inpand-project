@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const domain = 'https://portfolio.inpand.com';
-const today = '2026-11-04';
+const today = new Date().toISOString().split('T')[0];
 
 // 1. Read project slugs from src/data/projects.ts
 const projectsPath = path.join(__dirname, '..', 'src', 'data', 'projects.ts');

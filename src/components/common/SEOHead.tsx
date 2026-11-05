@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { COMPANY_CONFIG } from '../../lib/config';
 
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface SEOHeadProps {
   title: string;
   exactTitle?: boolean;
@@ -11,6 +16,8 @@ interface SEOHeadProps {
   type?: 'website' | 'article';
   robots?: string;
   noindex?: boolean;
+  keywords?: string | string[];
+  breadcrumbs?: BreadcrumbItem[];
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -24,6 +31,8 @@ export function SEOHead({
   type = 'website',
   robots,
   noindex = false,
+  keywords,
+  breadcrumbs,
   structuredData,
 }: SEOHeadProps) {
   useEffect(() => {
@@ -50,7 +59,7 @@ export function SEOHead({
 
     const domain = (COMPANY_CONFIG.showcaseDomain || 'https://portfolio.inpand.com').replace(/\/$/, '');
     const cleanPath = path ? (path.startsWith('/') ? path : `/${path}`) : '/';
-    const computedCanonical = canonicalUrl || `${domain}${cleanPath}`;
+    const computedCanonical = canonicalUrl || `${domain}${cleanPath === '/' ? '/' : cleanPath.replace(/\/$/, '')}`;
     const fullImage = image.startsWith('http')
       ? image
       : `${domain}${image.startsWith('/') ? image : `/${image}`}`;
@@ -73,6 +82,11 @@ export function SEOHead({
     setMeta('twitter:description', description);
     setMeta('twitter:image', fullImage);
 
+    if (keywords) {
+      const keywordsString = Array.isArray(keywords) ? keywords.join(', ') : keywords;
+      setMeta('keywords', keywordsString);
+    }
+
     // Canonical link management
     let linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!linkCanonical) {
@@ -82,17 +96,48 @@ export function SEOHead({
     }
     linkCanonical.setAttribute('href', computedCanonical);
 
-    // Structured data injection (JSON-LD)
+    // Build structured data graph (Breadcrumbs + Page + Custom)
     const scriptId = 'seo-structured-data';
     let scriptEl = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    const schemaGraph: Array<Record<string, unknown>> = [];
+
+    // Add breadcrumb schema if available
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      schemaGraph.push({
+        '@type': 'BreadcrumbList',
+        '@id': `${computedCanonical}#breadcrumb`,
+        itemListElement: breadcrumbs.map((crumb, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: crumb.name,
+          item: crumb.url.startsWith('http') ? crumb.url : `${domain}${crumb.url === '/' ? '/' : crumb.url.replace(/\/$/, '')}`,
+        })),
+      });
+    }
+
+    // Add custom structured data if supplied
     if (structuredData) {
+      if (Array.isArray(structuredData)) {
+        schemaGraph.push(...structuredData);
+      } else if (structuredData['@graph'] && Array.isArray(structuredData['@graph'])) {
+        schemaGraph.push(...(structuredData['@graph'] as Array<Record<string, unknown>>));
+      } else {
+        schemaGraph.push(structuredData);
+      }
+    }
+
+    if (schemaGraph.length > 0) {
       if (!scriptEl) {
         scriptEl = document.createElement('script');
         scriptEl.id = scriptId;
         scriptEl.type = 'application/ld+json';
         document.head.appendChild(scriptEl);
       }
-      scriptEl.textContent = JSON.stringify(structuredData);
+      scriptEl.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': schemaGraph,
+      });
     }
 
     return () => {
@@ -111,6 +156,8 @@ export function SEOHead({
     type,
     robots,
     noindex,
+    keywords,
+    breadcrumbs,
     structuredData,
   ]);
 

@@ -132,6 +132,38 @@ server.listen(port, async () => {
     assert(sd['@graph'].some(e => e['@type'] === 'Organization'), 'Structured data includes Organization');
     assert(sd['@graph'].some(e => e['@type'] === 'WebSite'), 'Structured data includes WebSite');
 
+    // 6. Test Prerendered Static Routes (Technical SEO Verification)
+    const projectsPage = await fetchUrl('/projects/index.html');
+    assert(projectsPage.status === 200, '/projects/index.html is pre-rendered and accessible (HTTP 200)');
+    assert(projectsPage.body.includes('Client Projects & Websites Portfolio | INPAND Technologies'), '/projects has route-specific <title>');
+    assert(projectsPage.body.includes('rel="canonical" href="https://portfolio.inpand.com/projects"'), '/projects has route-specific canonical URL');
+
+    const softwarePage = await fetchUrl('/software/index.html');
+    assert(softwarePage.status === 200, '/software/index.html is pre-rendered and accessible (HTTP 200)');
+    assert(softwarePage.body.includes('Mobile Applications & Electron Desktop Software Showcase | INPAND Technologies'), '/software has route-specific <title>');
+    assert(softwarePage.body.includes('rel="canonical" href="https://portfolio.inpand.com/software"'), '/software has route-specific canonical URL');
+
+    const aboutPage = await fetchUrl('/about/index.html');
+    assert(aboutPage.status === 200, '/about/index.html is pre-rendered and accessible (HTTP 200)');
+    assert(aboutPage.body.includes('About INPAND Technologies | Custom Software & Web Development Studio'), '/about has route-specific <title>');
+    assert(aboutPage.body.includes('rel="canonical" href="https://portfolio.inpand.com/about"'), '/about has route-specific canonical URL');
+
+    const contactPage = await fetchUrl('/contact/index.html');
+    assert(contactPage.status === 200, '/contact/index.html is pre-rendered and accessible (HTTP 200)');
+    assert(contactPage.body.includes('Contact INPAND Technologies | Digital Project Enquiries & Offices'), '/contact has route-specific <title>');
+    assert(contactPage.body.includes('rel="canonical" href="https://portfolio.inpand.com/contact"'), '/contact has route-specific canonical URL');
+
+    const projectDetail = await fetchUrl('/projects/mei-alai/index.html');
+    assert(projectDetail.status === 200, '/projects/mei-alai/index.html is pre-rendered and accessible (HTTP 200)');
+    assert(projectDetail.body.includes('Mei Alai - Media & Entertainment Portfolio | INPAND Technologies'), 'Mei Alai project has route-specific <title>');
+    assert(projectDetail.body.includes('rel="canonical" href="https://portfolio.inpand.com/projects/mei-alai"'), 'Mei Alai project has route-specific canonical URL');
+    assert(projectDetail.body.includes('"@type": "CreativeWork"') || projectDetail.body.includes('"@type":"CreativeWork"'), 'Mei Alai project includes CreativeWork schema');
+    assert(projectDetail.body.includes('"@type": "BreadcrumbList"') || projectDetail.body.includes('"@type":"BreadcrumbList"'), 'Mei Alai project includes BreadcrumbList schema');
+
+    const notFoundPage = await fetchUrl('/404.html');
+    assert(notFoundPage.status === 200, '404.html is pre-rendered and accessible (HTTP 200)');
+    assert(notFoundPage.body.includes('noindex, nofollow'), '404.html specifies noindex, nofollow robots directive');
+
     console.log(`======================================================`);
     console.log(`TOTAL SERVER INTEGRITY CHECKS: ${passes + failures}`);
     console.log(`PASSED: ${passes}`);
